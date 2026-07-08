@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Prepara tu piel y unifica el tono para un acabado natural y duradero." name="description"/>
+<title>Base | Rostro | Maquillaje | FyBeauty</title>
+<!-- BOOTSTRAP 5 -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+<!-- CSS PROPIO -->
+<link href="css/misEstilos.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- =========================================================
+         ENCABEZADO
+         ========================================================= -->
+<header class="encabezado">
+<div class="container-xl">
+<div class="row align-items-center g-3 py-3">
+<div class="col-12 col-md-3 col-lg-2 text-center text-md-start header-logo">
+<img alt="" src="img/logo.png"/>
+</div>
+<!-- BUSCADOR -->
+<div class="col-12 col-md-9 col-lg-5">
+<label class="visually-hidden" for="buscador-principal">
+
+                        Buscar
+
+                    </label>
+<input aria-label="Buscar productos" class="form-control buscador" id="buscador-principal" placeholder="Buscar" type="search"/>
+</div>
+<!-- BOTONES DE CUENTA Y CARRITO -->
+<div class="col-12 col-lg-5 ms-lg-auto">
+<div class="d-flex flex-wrap justify-content-center justify-content-lg-end gap-2 gap-md-3">
+<a class="btn boton-header" href="mi-cuenta.html">
+<img alt="mi-cuenta" src="img/mi-cuenta.png "/>
+<!-- ICONO MI CUENTA
+
+
+                                 Aquí debes colocar el icono de usuario.
+                                    
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-cuenta.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+<span>Mi Cuenta</span>
+</a>
+<a class="btn boton-header" href="carrito.html">
+<img alt="" src="img/mi-carrito.png"/>
+<!-- ICONO MI CARRITO
+                                 Aquí debes colocar el icono de carrito.
+
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-carrito.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+<span>Mi Carrito</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- MENÚ PRINCIPAL -->
+<nav aria-label="Navegación principal" class="navbar navbar-expand-lg p-0">
+<div class="container-xl px-3 px-md-3 d-flex justify-content-start">
+<button aria-controls="menuPrincipalCollapse" aria-expanded="false" aria-label="Abrir menú de navegación" class="navbar-toggler boton-menu" data-bs-target="#menuPrincipalCollapse" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="menuPrincipalCollapse">
+<div class="menu-principal">
+<div class="menu-item">
+<a class="menu-link" data-seccion="maquillaje" href="maquillaje.html">
+                                MAQUILLAJE
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Maquillaje" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li class="submenu-item">
+<a href="maquillaje-rostro.html">Rostro</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Rostro" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-rostro-base.html">Base</a></li>
+<li><a href="maquillaje-rostro-contorno.html">Contorno</a></li>
+<li><a href="maquillaje-rostro-corrector.html">Corrector</a></li>
+<li><a href="maquillaje-rostro-iluminador.html">Iluminador</a></li>
+<li><a href="maquillaje-rostro-polvo.html">Polvo</a></li>
+<li><a href="maquillaje-rostro-rubor.html">Rubor</a></li>
+</ul>
+</li>
+<li class="submenu-item">
+<a href="maquillaje-ojos.html">Ojos</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Ojos" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-ojos-sombras.html">Sombras</a></li>
+<li><a href="maquillaje-ojos-mascara.html">Máscara</a></li>
+<li><a href="maquillaje-ojos-delineador.html">Delineador</a></li>
+<li><a href="maquillaje-ojos-cejas.html">Cejas</a></li>
+</ul>
+</li>
+<li class="submenu-item">
+<a href="maquillaje-labios.html">Labios</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Labios" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-labios-labiales.html">Labiales</a></li>
+<li><a href="maquillaje-labios-gloss.html">Gloss</a></li>
+<li><a href="maquillaje-labios-delineadores.html">Delineadores</a></li>
+<li><a href="maquillaje-labios-tintas.html">Tintas</a></li>
+<li><a href="maquillaje-labios-balsamos.html">Bálsamos</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="menu-item">
+<a class="menu-link" data-seccion="skincare" href="skincare.html">
+                                SKINCARE
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Skincare" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="skincare-limpiadores.html">Limpiadores</a></li>
+<li><a href="skincare-hidratantes.html">Hidratantes</a></li>
+<li><a href="skincare-bloqueadores.html">Bloqueadores</a></li>
+<li class="submenu-item">
+<a href="#">Tipos de piel</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Tipos de piel" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="skincare-piel-seca.html">Piel seca</a></li>
+<li><a href="skincare-piel-grasa.html">Piel grasa</a></li>
+<li><a href="skincare-piel-sensible.html">Piel sensible</a></li>
+<li><a href="skincare-piel-normal.html">Piel normal</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="menu-item">
+<a class="menu-link" data-seccion="accesorios" href="accesorios.html">
+                                ACCESORIOS
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Accesorios" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="accesorios-brochas.html">Brochas</a></li>
+<li><a href="accesorios-rizadores.html">Rizadores</a></li>
+<li><a href="accesorios-esponjas.html">Esponjas</a></li>
+</ul>
+</div>
+<a aria-current="page" class="menu-link active" href="asesoramiento.html">
+                            ASESORAMIENTO
+                        </a>
+<div class="menu-item">
+<a class="menu-link" data-seccion="guia" href="guia-estilo.html">
+                                GUÍA DE ESTILO
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Guía de Estilo" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="guia-rutina.html">Rutina</a></li>
+<li><a href="guia-tips.html">Tips</a></li>
+<li><a href="guia-blogs.html">Blogs</a></li>
+</ul>
+</div>
+<a class="menu-link" href="sobre-nosotros.html">
+                            SOBRE FY BEAUTY
+                        </a>
+</div>
+</div>
+</div>
+</nav>
+<!-- Línea pegada directamente al menú -->
+<div class="linea-header"></div>
+</header>
+<!-- =========================================================
+             MIGAS DE PAN
+             ========================================================= -->
+<div class="container-xl breadcrumb-contenedor">
+<nav aria-label="Migas de pan">
+<ol class="breadcrumb breadcrumb-fy mb-0">
+<li class="breadcrumb-item">
+<a href="inicio.html">Inicio</a>
+</li>
+<li class="breadcrumb-item">
+<a href="maquillaje.html">Maquillaje</a>
+</li>
+<li class="breadcrumb-item">
+<a href="maquillaje-rostro.html">Rostro</a>
+</li>
+<li aria-current="page" class="breadcrumb-item active">
+                        Base
+                    </li>
+</ol>
+</nav>
+</div>
+<main>
+<!-- =========================================================
+             PRESENTACIÓN PRINCIPAL — BASE
+             ========================================================= -->
+<section class="seccion-hero seccion-hero-wireframe">
+<div class="container-fluid">
+<div class="row g-4 align-items-stretch">
+<div class="col-12 col-lg-3 text-center text-lg-start">
+<h1 class="titulo-principal">BASES PARA ROSTRO</h1>
+<p class="descripcion-principal">Prepara tu piel y unifica el tono para un acabado natural y duradero.</p>
+</div>
+<div class="col-12 col-lg-9">
+<div class="hero-panel-conjunto">
+<div class="hero-panel-texto">
+<h2>UNA PIEL IMPECABLE</h2>
+<p>Bases líquidas, en polvo y stick para cada tipo de piel.</p>
+<a class="btn btn-ver-mas btn-sm" href="#productos">VER MÁS</a>
+</div>
+<div class="hero-panel-banner">
+<div class="espacio-banner">
+<img alt="Bases perfectas todo el día" src="img/BN-Asesoramiento.png"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             FILTROS + LISTADO DE PRODUCTOS
+             ========================================================= -->
+<section class="seccion-funciona pt-0" id="productos">
+<div class="container-xl">
+<div class="barra-orden">
+<div></div>
+<div>
+<label class="visually-hidden">Ordenar por</label>
+<select class="form-select">
+<option selected="">Más vendidos</option>
+<option>Menor precio</option>
+<option>Mayor precio</option>
+<option>Novedades</option>
+</select>
+</div>
+</div>
+<div class="row g-4">
+<div class="col-12 col-md-3">
+<aside class="filtro-lateral">
+<h2>FILTRAR</h2>
+<div class="filtro-grupo">
+<h3>Tipo de Producto</h3>
+<div class="form-check">
+<input class="form-check-input" id="tipo-de-producto-gel" type="checkbox"/>
+<label class="form-check-label" for="tipo-de-producto-gel">Gel (12)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="tipo-de-producto-espuma" type="checkbox"/>
+<label class="form-check-label" for="tipo-de-producto-espuma">Espuma (10)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="tipo-de-producto-aceite" type="checkbox"/>
+<label class="form-check-label" for="tipo-de-producto-aceite">Aceite (9)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="tipo-de-producto-balsamo" type="checkbox"/>
+<label class="form-check-label" for="tipo-de-producto-balsamo">Bálsamo (8)</label>
+</div>
+</div>
+<div class="filtro-grupo">
+<h3>Acabado</h3>
+<div class="form-check">
+<input class="form-check-input" id="acabado-graso" type="checkbox"/>
+<label class="form-check-label" for="acabado-graso">Graso (12)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="acabado-seco" type="checkbox"/>
+<label class="form-check-label" for="acabado-seco">Seco (12)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="acabado-mixto" type="checkbox"/>
+<label class="form-check-label" for="acabado-mixto">Mixto (12)</label>
+</div>
+</div>
+<div class="filtro-grupo">
+<h3>Cobertura</h3>
+<div class="form-check">
+<input class="form-check-input" id="cobertura-graso" type="checkbox"/>
+<label class="form-check-label" for="cobertura-graso">Graso (12)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="cobertura-seco" type="checkbox"/>
+<label class="form-check-label" for="cobertura-seco">Seco (12)</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" id="cobertura-mixto" type="checkbox"/>
+<label class="form-check-label" for="cobertura-mixto">Mixto (12)</label>
+</div>
+</div>
+<div class="filtro-grupo">
+<h3>Marca</h3>
+<select aria-label="Buscar marca" class="form-select" data-filtro="marca">
+<option selected="" value="">Buscar marca</option>
+<option>Maybelline</option>
+<option>CeraVe</option>
+<option>The Ordinary</option>
+</select>
+</div>
+<div class="filtro-grupo">
+<h3>Precio</h3>
+<input class="form-range" max="1700" min="0" type="range" value="1700"/>
+<div class="filtro-precio-valores">
+<span>S/ 0</span>
+<span>S/ 1700</span>
+</div>
+</div>
+<button class="btn btn-filtrar" type="button">Filtrar</button>
+</aside>
+</div>
+<div class="col-12 col-md-9">
+<p class="contador-resultados mb-3">12 productos encontrados</p>
+<div class="row g-4">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante neutrogena hydro boost neutrogena" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante neutrogena hydro boost neutrogena" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base pro coverage foundation natural larga duración 28ml l.a girl" src="img/Bases/base pro coverage foundation natural larga duración 28ml l.a girl.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Crema Hidratante Neutrogena Hydro Boost<br/><small class="text-muted">Neutrogena</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="gel crema hidratante pond s pond s" data-precio="34.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="gel crema hidratante pond s pond s" data-precio="34.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base superstay full coverage 4.20 fl oz tono natural beige maybelline" src="img/Bases/base superstay full coverage 4.20 fl oz tono natural beige maybelline.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Gel Crema Hidratante Pond’s<br/><small class="text-muted">Pond's</small></p>
+</a>
+<p class="precio-producto">S/ 34.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="hidratante facial cerave cerave" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="hidratante facial cerave cerave" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base de maquillaje infallible pro-matte tono classic tan 30 ml l'oréal paris" src="img/Bases/base de maquillaje infallible pro-matte tono classic tan 30 ml l'oréal paris.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Hidratante Facial CeraVe<br/><small class="text-muted">CeraVe</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="water cream toniden toniden" data-precio="79.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="water cream toniden toniden" data-precio="79.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base de Maquillaje Light Medium Warm 2 Clinique" src="img/Bases/Base de Maquillaje Light Medium Warm 2 Clinique.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Water Cream Toniden<br/><small class="text-muted">Toniden</small></p>
+</a>
+<p class="precio-producto">S/ 79.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante the ordinary the ordinary" data-precio="45.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante the ordinary the ordinary" data-precio="45.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base En Polvo De Alta Cobertura Skin-Focus Honey Sheglam" src="img/Bases/Base En Polvo De Alta Cobertura Skin-Focus Honey Sheglam.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Crema Hidratante The Ordinary<br/><small class="text-muted">The Ordinary</small></p>
+</a>
+<p class="precio-producto">S/ 45.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="serum hydrating vichy mineral 89 vichy" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="serum hydrating vichy mineral 89 vichy" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base Even Better Clinical Spf 20 Cn 70 Vanilla Clinique" src="img/Bases/Base Even Better Clinical Spf 20 Cn 70 Vanilla Clinique.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Sérum Hydrating Vichy Mineral 89<br/><small class="text-muted">Vichy</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante embryolisse embryolisse" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante embryolisse embryolisse" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base foundation stick 111 essence" src="img/Bases/base foundation stick 111 essence.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Crema Hidratante Embryolisse<br/><small class="text-muted">Embryolisse</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="locion hidratante curel curel" data-precio="99.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="locion hidratante curel curel" data-precio="99.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base Hidratante Skinfinite Golden Sheglam" src="img/Bases/Base Hidratante Skinfinite Golden Sheglam.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Loción Hidratante Curel<br/><small class="text-muted">Curel</small></p>
+</a>
+<p class="precio-producto">S/ 99.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante the ordinary neutrogena" data-precio="45.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante the ordinary neutrogena" data-precio="45.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base maybelline fit me fresh tint spf50 10.8" src="img/Bases/base maybelline fit me fresh tint spf50 10.8.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Crema Hidratante The Ordinary<br/><small class="text-muted">Neutrogena</small></p>
+</a>
+<p class="precio-producto">S/ 45.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="serum hydrating vichy mineral 89 pond s" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="serum hydrating vichy mineral 89 pond s" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base maybelline fit me matte pore fdn 125 nude beige" src="img/Bases/base maybelline fit me matte pore fdn 125 nude beige.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Sérum Hydrating Vichy Mineral 89<br/><small class="text-muted">Pond's</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante embryolisse cerave" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="crema hidratante embryolisse cerave" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base maybelline superstay lumi matte 310" src="img/Bases/base maybelline superstay lumi matte 310.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Crema Hidratante Embryolisse<br/><small class="text-muted">CeraVe</small></p>
+</a>
+<p class="precio-producto">S/ 69.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="locion hidratante curel toniden" data-precio="99.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="locion hidratante curel toniden" data-precio="99.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="base natural essence matte mousse found. 02" src="img/Bases/base natural essence matte mousse found. 02.webp"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="producto.html">
+<p class="nombre-producto">Loción Hidratante Curel<br/><small class="text-muted">Toniden</small></p>
+</a>
+<p class="precio-producto">S/ 99.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             BENEFICIOS DE COMPRA
+             ========================================================= -->
+<section aria-label="Beneficios de compra" class="beneficios">
+<div class="container-xl">
+<div class="row g-0">
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/ENVIO.png"/>
+<div>
+<strong>Envío rápido</strong>
+<small>Recíbelo en 24–48 h</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/SEGURIDAD.png"/>
+<div>
+<strong>Productos 100% originales</strong>
+<small>Compra con seguridad</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/PAGO.png"/>
+<div>
+<strong>Pago como quieras</strong>
+<small>Tarjeta, Yape o Plin</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/PAQUETE.png"/>
+<div>
+<strong>Devoluciones fáciles</strong>
+<small>Hasta 7 días</small>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             NEWSLETTER
+             Esta sección es independiente del footer.
+             ========================================================= -->
+<section class="newsletter">
+<div class="container-xl">
+<div class="row align-items-center g-3">
+<div class="col-12 col-lg-4">
+<div class="newsletter-mensaje">
+<img alt="" src="img/enterate (1).png"/>
+<!-- ICONO DE NOVEDADES
+                                 Aquí debes colocar el icono
+                                 de megáfono.
+                            -->
+<div>
+<strong>
+
+                                    ¡Entérate de novedades y promociones exclusivas!
+
+                                </strong>
+<small>
+
+                                    Suscríbete a nuestro newsletter.
+
+                                </small>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-8 col-lg-5">
+<label class="visually-hidden" for="correo-newsletter">
+
+                            Correo electrónico
+
+                        </label>
+<input class="form-control newsletter-input" id="correo-newsletter" placeholder="Ingrese su correo" type="email"/>
+</div>
+<div class="col-12 col-md-4 col-lg-3">
+<button class="btn btn-suscribir w-100" type="button">
+
+                            SUSCRIBIRME
+
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================================================
+         FOOTER
+         Es una sección distinta del newsletter.
+         ========================================================= -->
+<footer class="footer-fy">
+<div class="container-xl">
+<div class="row gx-4 gy-1 align-items-stretch">
+<!-- COLUMNA DEL LOGO -->
+<div class="col-12 col-lg-3 footer-columna footer-marca text-center text-lg-start">
+<img alt="logo" src="img/logo.png"/>
+<p>
+
+                        Tu belleza, tu rutina, tu mejor versión.
+
+                    </p>
+</div>
+<!-- COLUMNA DE AYUDA -->
+<div class="col-12 col-lg-5 footer-columna footer-ayuda">
+<h2>
+
+                        PUNTO DE CONTACTO / AYUDA
+
+                    </h2>
+<div class="row g-3">
+<div class="col-6">
+<a href="#">
+                                Atención al cliente
+                            </a>
+<a href="#">
+                                Preguntas frecuentes
+                            </a>
+<a href="#">
+                                Envíos y entregas
+                            </a>
+</div>
+<div class="col-6 text-end">
+<a href="#">
+                                Cambios y devoluciones
+                            </a>
+<a href="#">
+                                Términos y condiciones
+                            </a>
+<a href="#">
+                                Políticas de privacidad
+                            </a>
+</div>
+</div>
+</div>
+<!-- COLUMNA DE REDES -->
+<div class="col-12 col-lg-4 footer-columna footer-redes text-center text-lg-start">
+<h2>
+
+                        CONECTA CON FYBEAUTY
+
+                    </h2>
+<div class="redes justify-content-center">
+<!-- ICONO DE FACEBOOK -->
+<a aria-label="Facebook" class="red-social-vacia" href="#">
+<img alt="" src="img/facebook.png"/>
+</a>
+<!-- ICONO DE INSTAGRAM -->
+<a aria-label="Instagram" class="red-social-vacia" href="#">
+<img alt="" src="img/instagram.png"/>
+</a>
+<!-- ICONO DE TIKTOK -->
+<a aria-label="TikTok" class="red-social-vacia" href="#">
+<img alt="" src="img/tiktok.png"/>
+</a>
+<!-- ICONO DE WHATSAPP -->
+<a aria-label="WhatsApp" class="red-social-vacia" href="#">
+<img alt="" src="img/wasapth.png"/>
+</a>
+<!-- ICONO DE X / TWITTER -->
+<a aria-label="X" class="red-social-vacia" href="#">
+<img alt="" src="img/x.png"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- COPYRIGHT -->
+<div class="copyright">
+<div class="container-xl">
+<small>
+
+                    © 2026 FyBeauty. Todos los derechos reservados.
+
+                </small>
+</div>
+</div>
+</footer>
+<!-- BOOTSTRAP JS -->
+<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script src="js/misProgramas.js"></script></body>
+</html>

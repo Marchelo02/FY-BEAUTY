@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Asesoramiento personalizado de belleza y cuidado de la piel en FyBeauty.">
+
+    <title>Asesoramiento personalizado | FyBeauty</title>
+
+    <!-- BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- CSS PROPIO -->
+    <link rel="stylesheet" href="css/misEstilos.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         ENCABEZADO
+         ========================================================= -->
+
+    <header class="encabezado">
+
+        <div class="container-xl">
+
+            <div class="row align-items-center g-3 py-3">
+
+
+
+
+
+                <div class="col-12 col-md-3 col-lg-2 text-center text-md-start  header-logo">
+
+                    <img src="img/logo.png" alt="">
+
+                </div>
+
+                <!-- BUSCADOR -->
+
+                <div class="col-12 col-md-9 col-lg-5">
+
+                    <label for="buscador-principal" class="visually-hidden">
+
+                        Buscar
+
+                    </label>
+
+                    <input id="buscador-principal" type="search" class="form-control buscador" placeholder="Buscar"
+                        aria-label="Buscar productos">
+
+                </div>
+
+                <!-- BOTONES DE CUENTA Y CARRITO -->
+
+                <div class="col-12 col-lg-5 ms-lg-auto">
+
+                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-end gap-2 gap-md-3">
+
+                        <a href="mi-cuenta.html" class="btn boton-header">
+
+                            <img src="img/mi-cuenta.png " alt="mi-cuenta">
+                            <!-- ICONO MI CUENTA
+
+
+                                 Aquí debes colocar el icono de usuario.
+                                    
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-cuenta.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+
+
+
+                            <span>Mi Cuenta</span>
+
+                        </a>
+
+                        <a href="carrito.html" class="btn boton-header">
+
+                            <img src="img/mi-carrito.png" alt="">
+
+                            <!-- ICONO MI CARRITO
+                                 Aquí debes colocar el icono de carrito.
+
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-carrito.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+
+
+
+                            <span>Mi Carrito</span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MENÚ PRINCIPAL -->
+
+        <nav class="navbar navbar-expand-lg p-0" aria-label="Navegación principal">
+
+            <div class="container-xl px-3 px-md-3 d-flex justify-content-start">
+
+                <button class="navbar-toggler boton-menu" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menuPrincipalCollapse" aria-controls="menuPrincipalCollapse" aria-expanded="false"
+                    aria-label="Abrir menú de navegación">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="menuPrincipalCollapse">
+
+                    <div class="menu-principal">
+
+                        <div class="menu-item">
+
+                            <a href="maquillaje.html" class="menu-link"  data-seccion="maquillaje">
+                                MAQUILLAJE
+                            </a>
+
+                            <button type="button" class="toggle-submenu" aria-expanded="false"
+                                aria-label="Ver categorías de Maquillaje">
+                                <span class="flecha"></span>
+                            </button>
+
+                            <ul class="submenu">
+
+                                <li class="submenu-item">
+
+                                    <a href="maquillaje-rostro.html">Rostro</a>
+
+                                    <button type="button" class="toggle-submenu" aria-expanded="false"
+                                        aria-label="Ver subcategorías de Rostro">
+                                        <span class="flecha"></span>
+                                    </button>
+
+                                    <ul class="submenu submenu-nivel2">
+                                        <li><a href="maquillaje-rostro-base.html">Base</a></li>
+                                        <li><a href="maquillaje-rostro-contorno.html">Contorno</a></li>
+                                        <li><a href="maquillaje-rostro-corrector.html">Corrector</a></li>
+                                        <li><a href="maquillaje-rostro-iluminador.html">Iluminador</a></li>
+                                        <li><a href="maquillaje-rostro-polvo.html">Polvo</a></li>
+                                        <li><a href="maquillaje-rostro-rubor.html">Rubor</a></li>
+                                    </ul>
+
+                                </li>
+
+                                <li class="submenu-item">
+
+                                    <a href="maquillaje-ojos.html">Ojos</a>
+
+                                    <button type="button" class="toggle-submenu" aria-expanded="false"
+                                        aria-label="Ver subcategorías de Ojos">
+                                        <span class="flecha"></span>
+                                    </button>
+
+                                    <ul class="submenu submenu-nivel2">
+                                        <li><a href="maquillaje-ojos-sombras.html">Sombras</a></li>
+                                        <li><a href="maquillaje-ojos-mascara.html">Máscara</a></li>
+                                        <li><a href="maquillaje-ojos-delineador.html">Delineador</a></li>
+                                        <li><a href="maquillaje-ojos-cejas.html">Cejas</a></li>
+                                    </ul>
+
+                                </li>
+
+                                <li class="submenu-item">
+
+                                    <a href="maquillaje-labios.html">Labios</a>
+
+                                    <button type="button" class="toggle-submenu" aria-expanded="false"
+                                        aria-label="Ver subcategorías de Labios">
+                                        <span class="flecha"></span>
+                                    </button>
+
+                                    <ul class="submenu submenu-nivel2">
+                                        <li><a href="maquillaje-labios-labiales.html">Labiales</a></li>
+                                        <li><a href="maquillaje-labios-gloss.html">Gloss</a></li>
+                                        <li><a href="maquillaje-labios-delineadores.html">Delineadores</a></li>
+                                        <li><a href="maquillaje-labios-tintas.html">Tintas</a></li>
+                                        <li><a href="maquillaje-labios-balsamos.html">Bálsamos</a></li>
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="menu-item">
+
+                            <a href="skincare.html" class="menu-link"  data-seccion="skincare">
+                                SKINCARE
+                            </a>
+
+                            <button type="button" class="toggle-submenu" aria-expanded="false"
+                                aria-label="Ver categorías de Skincare">
+                                <span class="flecha"></span>
+                            </button>
+
+                            <ul class="submenu">
+
+                                <li><a href="skincare-limpiadores.html">Limpiadores</a></li>
+                                <li><a href="skincare-hidratantes.html">Hidratantes</a></li>
+                                <li><a href="skincare-bloqueadores.html">Bloqueadores</a></li>
+
+                                <li class="submenu-item">
+
+                                    <a href="#">Tipos de piel</a>
+
+                                    <button type="button" class="toggle-submenu" aria-expanded="false"
+                                        aria-label="Ver subcategorías de Tipos de piel">
+                                        <span class="flecha"></span>
+                                    </button>
+
+                                    <ul class="submenu submenu-nivel2">
+                                        <li><a href="skincare-piel-seca.html">Piel seca</a></li>
+                                        <li><a href="skincare-piel-grasa.html">Piel grasa</a></li>
+                                        <li><a href="skincare-piel-sensible.html">Piel sensible</a></li>
+                                        <li><a href="skincare-piel-normal.html">Piel normal</a></li>
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="menu-item">
+
+                            <a href="accesorios.html" class="menu-link" data-seccion="accesorios" >
+                                ACCESORIOS
+                            </a>
+
+                            <button type="button" class="toggle-submenu" aria-expanded="false"
+                                aria-label="Ver categorías de Accesorios">
+                                <span class="flecha"></span>
+                            </button>
+
+                            <ul class="submenu">
+                                <li><a href="accesorios-brochas.html">Brochas</a></li>
+                                <li><a href="accesorios-rizadores.html">Rizadores</a></li>
+                                <li><a href="accesorios-esponjas.html">Esponjas</a></li>
+                            </ul>
+
+                        </div>
+
+                        <a href="asesoramiento.html" class="menu-link active" aria-current="page">
+                            ASESORAMIENTO
+                        </a>
+
+                        <div class="menu-item">
+
+                            <a href="guia-estilo.html" class="menu-link" data-seccion="guia">
+                                GUÍA DE ESTILO
+                            </a>
+
+                            <button type="button" class="toggle-submenu" aria-expanded="false"
+                                aria-label="Ver categorías de Guía de Estilo">
+                                <span class="flecha"></span>
+                            </button>
+
+                            <ul class="submenu">
+                                <li><a href="guia-rutina.html">Rutina</a></li>
+                                <li><a href="guia-tips.html">Tips</a></li>
+                                <li><a href="guia-blogs.html">Blogs</a></li>
+                            </ul>
+
+                        </div>
+
+                        <a href="sobre-nosotros.html" class="menu-link">
+                            SOBRE FY BEAUTY
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <!-- Línea pegada directamente al menú -->
+
+        <div class="linea-header"></div>
+
+    </header>
+
+    <main>
+
+        <!-- =========================================================
+             MIGAS DE PAN
+             ========================================================= -->
+
+        <div class="container-xl breadcrumb-contenedor">
+
+            <nav aria-label="Migas de pan">
+
+                <ol class="breadcrumb breadcrumb-fy mb-0">
+
+                    <li class="breadcrumb-item">
+
+                        <a href="index.html">
+                            Inicio
+                        </a>
+
+                    </li>
+
+                    <li class="breadcrumb-item active" aria-current="page">
+
+                        Asesoramiento
+
+                    </li>
+
+                </ol>
+
+            </nav>
+
+        </div>
+
+        <!-- =========================================================
+             PRESENTACIÓN PRINCIPAL
+             ========================================================= -->
+
+        <section class="seccion-hero">
+
+            <div class="container-fluid">
+
+                <div class="row  g-4">
+
+                    <div class="col-12 col-lg-4 text-center text-lg-start ">
+
+                        <h1 class="titulo-principal">
+
+                            ASESORAMIENTO
+                            <br>
+                            PERSONALIZADO
+
+                        </h1>
+
+                        <p class="descripcion-principal">
+
+                            Responde algunas preguntas sobre tu piel y recibe
+                            recomendaciones personalizadas de productos y rutina.
+
+                        </p>
+
+
+
+                        <a href="cuestionario.html" class="btn btn-cuestionario">
+
+                            Comenzar cuestionario
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-12 col-lg-8 ">
+
+
+                        <!-- BANNER PRINCIPAL
+                             Aquí debes colocar la imagen horizontal
+                             de asesoramiento.
+
+                             Ejemplo:
+
+                             <img
+                                src="img/banner-asesoramiento.jpg"
+                                alt="Rutina ideal de cuidado de la piel"
+                                class="banner-principal">
+                        -->
+
+                        <div class="espacio-banner">
+
+                            <!-- IMAGEN: banner horizontal de asesoramiento -->
+                            <img src="img/BN-Asesoramiento.png" alt="Rutina ideal de cuidado de la piel">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================================
+             CÓMO FUNCIONA
+             ========================================================= -->
+
+        <section class="seccion-funciona">
+
+            <div class="container-xl">
+
+                <div class="titulo-con-lineas">
+
+                    <span class="linea-decorativa" aria-hidden="true">
+                    </span>
+
+                    <h2 class="titulo-seccion">
+
+                        CÓMO FUNCIONA
+
+                    </h2>
+
+                    <span class="linea-decorativa" aria-hidden="true">
+                    </span>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- TARJETA 1 -->
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+
+                        <article class="card card-funciona h-100">
+
+                            <div class="card-body">
+
+                                <img src="img/responde-nuestro-cuestionario.png" alt="">
+                                <!-- ICONO DE CUESTIONARIO
+                                     Aquí debes colocar el icono
+                                     de una lista o formulario.
+                                -->
+
+
+                                <h3>
+
+                                    Responde nuestro cuestionario
+
+                                </h3>
+
+                                <p>
+
+                                    Cuéntanos sobre tu piel y hábitos.
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- TARJETA 2 -->
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+
+                        <article class="card card-funciona h-100">
+
+                            <div class="card-body">
+
+                                <img src="img/estadistica.png" alt="">
+
+                                <!-- ICONO DE RESULTADOS
+                                     Aquí debes colocar el icono
+                                     de estadísticas o gráfico.
+                                -->
+
+
+
+                                <h3>
+
+                                    Obtén tus resultados
+
+                                </h3>
+
+                                <p>
+
+                                    Analizamos tus respuestas al instante.
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- TARJETA 3 -->
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+
+                        <article class="card card-funciona h-100">
+
+                            <div class="card-body">
+                                <img src="img/recibe-tus-recimendaciones.png" alt="">
+
+                                <!-- ICONO DE RECOMENDACIONES
+                                     Aquí debes colocar el icono
+                                     de idea o recomendación.
+                                -->
+
+
+
+                                <h3>
+
+                                    Recibe recomendaciones
+
+                                </h3>
+
+                                <p>
+
+                                    Te sugerimos productos ideales para ti.
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- TARJETA 4 -->
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+
+                        <article class="card card-funciona h-100">
+
+                            <div class="card-body">
+
+                                <img src="img/rutina-personalizada.png" alt="">
+
+                                <!-- ICONO DE RUTINA
+                                     Aquí debes colocar el icono
+                                     de sérum, crema o rutina facial.
+                                -->
+
+
+
+                                <h3>
+
+                                    Rutina personalizada
+
+                                </h3>
+
+                                <p>
+
+                                    Descubre la rutina ideal para ti.
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================================
+             BENEFICIOS DE COMPRA
+             ========================================================= -->
+
+        <section class="beneficios" aria-label="Beneficios de compra">
+
+            <div class="container-xl">
+
+                <div class="row g-0">
+
+                    <!-- BENEFICIO 1 -->
+
+                    <div class="col-6 col-lg-3 beneficio-item">
+
+                        <img src="img/ENVIO.png" alt="">
+
+
+
+                        <div>
+
+                            <strong>
+                                Envío rápido
+                            </strong>
+
+                            <small>
+                                Recíbelo en 24–48 h
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BENEFICIO 2 -->
+
+                    <div class="col-6 col-lg-3 beneficio-item">
+
+                        <img src="img/SEGURIDAD.png" alt="">
+
+
+
+
+                        <div>
+
+                            <strong>
+                                Productos 100% originales
+                            </strong>
+
+                            <small>
+                                Compra con seguridad
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BENEFICIO 3 -->
+
+                    <div class="col-6 col-lg-3 beneficio-item">
+
+                        <img src="img/PAGO.png" alt="">
+
+
+
+                        <div>
+
+                            <strong>
+                                Pago como quieras
+                            </strong>
+
+                            <small>
+                                Tarjeta, Yape o Plin
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BENEFICIO 4 -->
+
+                    <div class="col-6 col-lg-3 beneficio-item">
+
+                        <img src="img/PAQUETE.png" alt="">
+
+
+
+                        <div>
+
+                            <strong>
+                                Devoluciones fáciles
+                            </strong>
+
+                            <small>
+                                Hasta 7 días
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================================
+             NEWSLETTER
+             Esta sección es independiente del footer.
+             ========================================================= -->
+
+        <section class="newsletter">
+
+            <div class="container-xl">
+
+                <div class="row align-items-center g-3">
+
+                    <div class="col-12 col-lg-4">
+
+                        <div class="newsletter-mensaje">
+
+                            <img src="img/enterate (1).png" alt="">
+                            <!-- ICONO DE NOVEDADES
+                                 Aquí debes colocar el icono
+                                 de megáfono.
+                            -->
+
+
+
+                            <div>
+
+                                <strong>
+
+                                    ¡Entérate de novedades y promociones exclusivas!
+
+                                </strong>
+
+                                <small>
+
+                                    Suscríbete a nuestro newsletter.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-md-8 col-lg-5">
+
+                        <label for="correo-newsletter" class="visually-hidden">
+
+                            Correo electrónico
+
+                        </label>
+
+                        <input id="correo-newsletter" type="email" class="form-control newsletter-input"
+                            placeholder="Ingrese su correo">
+
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+
+                        <button type="button" class="btn btn-suscribir w-100">
+
+                            SUSCRIBIRME
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         FOOTER
+         Es una sección distinta del newsletter.
+         ========================================================= -->
+
+    <footer class="footer-fy">
+
+        <div class="container-xl">
+
+            <div class="row gx-4 gy-1 align-items-stretch">
+
+                <!-- COLUMNA DEL LOGO -->
+
+                <div class="col-12 col-lg-3 footer-columna footer-marca text-center text-lg-start">
+
+
+                    <img src="img/logo.png" alt="logo">
+
+
+
+
+                    <p>
+
+                        Tu belleza, tu rutina, tu mejor versión.
+
+                    </p>
+
+                </div>
+
+                <!-- COLUMNA DE AYUDA -->
+
+                <div class="col-12 col-lg-5 footer-columna footer-ayuda">
+
+                    <h2>
+
+                        PUNTO DE CONTACTO / AYUDA
+
+                    </h2>
+
+                    <div class="row g-3">
+
+                        <div class="col-6">
+
+                            <a href="#">
+                                Atención al cliente
+                            </a>
+
+                            <a href="#">
+                                Preguntas frecuentes
+                            </a>
+
+                            <a href="#">
+                                Envíos y entregas
+                            </a>
+
+                        </div>
+
+                        <div class="col-6 text-end">
+
+                            <a href="#">
+                                Cambios y devoluciones
+                            </a>
+
+                            <a href="#">
+                                Términos y condiciones
+                            </a>
+
+                            <a href="#">
+                                Políticas de privacidad
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- COLUMNA DE REDES -->
+
+                <div class="col-12 col-lg-4 footer-columna footer-redes text-center text-lg-start">
+
+                    <h2>
+
+                        CONECTA CON FYBEAUTY
+
+                    </h2>
+
+                    <div class="redes justify-content-center ">
+
+                        <!-- ICONO DE FACEBOOK -->
+
+                        <a href="#" class="red-social-vacia" aria-label="Facebook">
+                            <img src="img/facebook.png" alt="">
+                        </a>
+
+                        <!-- ICONO DE INSTAGRAM -->
+
+                        <a href="#" class="red-social-vacia" aria-label="Instagram">
+                            <img src="img/instagram.png" alt="">
+                        </a>
+
+                        <!-- ICONO DE TIKTOK -->
+
+                        <a href="#" class="red-social-vacia" aria-label="TikTok">
+                            <img src="img/tiktok.png" alt="">
+                        </a>
+
+                        <!-- ICONO DE WHATSAPP -->
+
+                        <a href="#" class="red-social-vacia" aria-label="WhatsApp">
+                            <img src="img/wasapth.png" alt="">
+                        </a>
+
+                        <!-- ICONO DE X / TWITTER -->
+
+                        <a href="#" class="red-social-vacia" aria-label="X">
+                            <img src="img/x.png" alt="">
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- COPYRIGHT -->
+
+        <div class="copyright">
+
+            <div class="container-xl">
+
+                <small>
+
+                    © 2026 FyBeauty. Todos los derechos reservados.
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- BOOTSTRAP JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+
+    <script src="js/misProgramas.js"></script>
+
+</body>
+
+</html>

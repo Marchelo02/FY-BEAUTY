@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Base, corrector, polvo y más para una piel perfecta en FyBeauty." name="description"/>
+<title>Rostro | Maquillaje | FyBeauty</title>
+<!-- BOOTSTRAP 5 -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+<!-- CSS PROPIO -->
+<link href="css/misEstilos.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- =========================================================
+         ENCABEZADO
+         ========================================================= -->
+<header class="encabezado">
+<div class="container-xl">
+<div class="row align-items-center g-3 py-3">
+<div class="col-12 col-md-3 col-lg-2 text-center text-md-start header-logo">
+<img alt="" src="img/logo.png"/>
+</div>
+<!-- BUSCADOR -->
+<div class="col-12 col-md-9 col-lg-5">
+<label class="visually-hidden" for="buscador-principal">
+
+                        Buscar
+
+                    </label>
+<input aria-label="Buscar productos" class="form-control buscador" id="buscador-principal" placeholder="Buscar" type="search"/>
+</div>
+<!-- BOTONES DE CUENTA Y CARRITO -->
+<div class="col-12 col-lg-5 ms-lg-auto">
+<div class="d-flex flex-wrap justify-content-center justify-content-lg-end gap-2 gap-md-3">
+<a class="btn boton-header" href="mi-cuenta.html">
+<img alt="mi-cuenta" src="img/mi-cuenta.png "/>
+<!-- ICONO MI CUENTA
+
+
+                                 Aquí debes colocar el icono de usuario.
+                                    
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-cuenta.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+<span>Mi Cuenta</span>
+</a>
+<a class="btn boton-header" href="carrito.html">
+<img alt="" src="img/mi-carrito.png"/>
+<!-- ICONO MI CARRITO
+                                 Aquí debes colocar el icono de carrito.
+
+                                 Ejemplo:
+
+                                 <img
+                                    src="img/icon-carrito.png"
+                                    alt=""
+                                    class="icono-header">
+                            -->
+<span>Mi Carrito</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- MENÚ PRINCIPAL -->
+<nav aria-label="Navegación principal" class="navbar navbar-expand-lg p-0">
+<div class="container-xl px-3 px-md-3 d-flex justify-content-start">
+<button aria-controls="menuPrincipalCollapse" aria-expanded="false" aria-label="Abrir menú de navegación" class="navbar-toggler boton-menu" data-bs-target="#menuPrincipalCollapse" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="menuPrincipalCollapse">
+<div class="menu-principal">
+<div class="menu-item">
+<a class="menu-link" data-seccion="maquillaje" href="maquillaje.html">
+                                MAQUILLAJE
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Maquillaje" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li class="submenu-item">
+<a href="maquillaje-rostro.html">Rostro</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Rostro" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-rostro-base.html">Base</a></li>
+<li><a href="maquillaje-rostro-contorno.html">Contorno</a></li>
+<li><a href="maquillaje-rostro-corrector.html">Corrector</a></li>
+<li><a href="maquillaje-rostro-iluminador.html">Iluminador</a></li>
+<li><a href="maquillaje-rostro-polvo.html">Polvo</a></li>
+<li><a href="maquillaje-rostro-rubor.html">Rubor</a></li>
+</ul>
+</li>
+<li class="submenu-item">
+<a href="maquillaje-ojos.html">Ojos</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Ojos" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-ojos-sombras.html">Sombras</a></li>
+<li><a href="maquillaje-ojos-mascara.html">Máscara</a></li>
+<li><a href="maquillaje-ojos-delineador.html">Delineador</a></li>
+<li><a href="maquillaje-ojos-cejas.html">Cejas</a></li>
+</ul>
+</li>
+<li class="submenu-item">
+<a href="maquillaje-labios.html">Labios</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Labios" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="maquillaje-labios-labiales.html">Labiales</a></li>
+<li><a href="maquillaje-labios-gloss.html">Gloss</a></li>
+<li><a href="maquillaje-labios-delineadores.html">Delineadores</a></li>
+<li><a href="maquillaje-labios-tintas.html">Tintas</a></li>
+<li><a href="maquillaje-labios-balsamos.html">Bálsamos</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="menu-item">
+<a class="menu-link" data-seccion="skincare" href="skincare.html">
+                                SKINCARE
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Skincare" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="skincare-limpiadores.html">Limpiadores</a></li>
+<li><a href="skincare-hidratantes.html">Hidratantes</a></li>
+<li><a href="skincare-bloqueadores.html">Bloqueadores</a></li>
+<li class="submenu-item">
+<a href="#">Tipos de piel</a>
+<button aria-expanded="false" aria-label="Ver subcategorías de Tipos de piel" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu submenu-nivel2">
+<li><a href="skincare-piel-seca.html">Piel seca</a></li>
+<li><a href="skincare-piel-grasa.html">Piel grasa</a></li>
+<li><a href="skincare-piel-sensible.html">Piel sensible</a></li>
+<li><a href="skincare-piel-normal.html">Piel normal</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="menu-item">
+<a class="menu-link" data-seccion="accesorios" href="accesorios.html">
+                                ACCESORIOS
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Accesorios" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="accesorios-brochas.html">Brochas</a></li>
+<li><a href="accesorios-rizadores.html">Rizadores</a></li>
+<li><a href="accesorios-esponjas.html">Esponjas</a></li>
+</ul>
+</div>
+<a aria-current="page" class="menu-link active" href="asesoramiento.html">
+                            ASESORAMIENTO
+                        </a>
+<div class="menu-item">
+<a class="menu-link" data-seccion="guia" href="guia-estilo.html">
+                                GUÍA DE ESTILO
+                            </a>
+<button aria-expanded="false" aria-label="Ver categorías de Guía de Estilo" class="toggle-submenu" type="button">
+<span class="flecha"></span>
+</button>
+<ul class="submenu">
+<li><a href="guia-rutina.html">Rutina</a></li>
+<li><a href="guia-tips.html">Tips</a></li>
+<li><a href="guia-blogs.html">Blogs</a></li>
+</ul>
+</div>
+<a class="menu-link" href="sobre-nosotros.html">
+                            SOBRE FY BEAUTY
+                        </a>
+</div>
+</div>
+</div>
+</nav>
+<!-- Línea pegada directamente al menú -->
+<div class="linea-header"></div>
+</header>
+<!-- =========================================================
+             MIGAS DE PAN
+             ========================================================= -->
+<div class="container-xl breadcrumb-contenedor">
+<nav aria-label="Migas de pan">
+<ol class="breadcrumb breadcrumb-fy mb-0">
+<li class="breadcrumb-item">
+<a href="inicio.html">Inicio</a>
+</li>
+<li class="breadcrumb-item">
+<a href="maquillaje.html">Maquillaje</a>
+</li>
+<li aria-current="page" class="breadcrumb-item active">
+                        Rostro
+                    </li>
+</ol>
+</nav>
+</div>
+<main>
+<!-- =========================================================
+             PRESENTACIÓN PRINCIPAL — ROSTRO
+             ========================================================= -->
+<section class="seccion-hero">
+<div class="container-fluid">
+<div class="row g-4 align-items-center">
+<div class="col-12 col-lg-4 text-center text-lg-start">
+<p class="mb-1 fw-semibold" style="color:var(--rosa-principal);">
+                            Resalta tu mejor versión
+                        </p>
+<h1 class="titulo-principal">ROSTRO</h1>
+<p class="descripcion-principal">
+                            Base, corrector, polvo y más para una piel perfecta.
+                        </p>
+<div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start mb-3">
+<span class="badge rounded-pill" style="background:var(--rosa-tarjeta);color:var(--texto);border:1px solid var(--rosa-borde);">
+                                Ingredientes naturales
+                            </span>
+<span class="badge rounded-pill" style="background:var(--rosa-tarjeta);color:var(--texto);border:1px solid var(--rosa-borde);">
+                                Larga duración
+                            </span>
+</div>
+<a class="btn btn-cuestionario" href="cuestionario.html">Hacer test</a>
+</div>
+<div class="col-12 col-lg-8">
+<!-- CARRUSEL DEL BANNER PRINCIPAL DE ROSTRO -->
+<div class="carousel slide carousel-banner" data-bs-ride="carousel" id="carruselRostro">
+<div class="carousel-indicators">
+<button aria-current="true" aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carruselRostro" type="button"></button>
+<button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carruselRostro" type="button"></button>
+</div>
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="espacio-banner">
+<img alt="Productos para rostro" src="img/BN-Asesoramiento.png"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="espacio-banner">
+<img alt="Novedades para rostro" src="img/BN-Asesoramiento.png"/>
+</div>
+</div>
+</div>
+<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carruselRostro" type="button">
+<span aria-hidden="true" class="carousel-control-prev-icon"></span>
+<span class="visually-hidden">Anterior</span>
+</button>
+<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carruselRostro" type="button">
+<span aria-hidden="true" class="carousel-control-next-icon"></span>
+<span class="visually-hidden">Siguiente</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             CATEGORÍAS DE ROSTRO (CÍRCULOS)
+             ========================================================= -->
+<section class="seccion-funciona pt-0">
+<div class="container-xl">
+<div class="titulo-con-lineas">
+<span aria-hidden="true" class="linea-decorativa"></span>
+<h2 class="titulo-seccion">CATEGORÍA DE ROSTRO</h2>
+<span aria-hidden="true" class="linea-decorativa"></span>
+</div>
+<ul class="subcategorias-circulo">
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-base.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Base" src="img/icon/Base.png"/>
+</span>
+<span>Base</span>
+</a>
+</li>
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-contorno.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Contorno" src="img/icon/Contorno.png"/>
+</span>
+<span>Contorno</span>
+</a>
+</li>
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-corrector.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Corrector" src="img/icon/Corrector.png"/>
+</span>
+<span>Corrector</span>
+</a>
+</li>
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-iluminador.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Iluminador" src="img/icon/Iluminador.png"/>
+</span>
+<span>Iluminador</span>
+</a>
+</li>
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-polvo.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Polvo" src="img/icon/Polvo.png"/>
+</span>
+<span>Polvo</span>
+</a>
+</li>
+<li class="subcategoria-circulo-item">
+<a href="maquillaje-rostro-rubor.html">
+<span class="subcategoria-circulo-imagen">
+<img alt="Rubor" src="img/icon/Rubor.png"/>
+</span>
+<span>Rubor</span>
+</a>
+</li>
+</ul>
+</div>
+</section>
+<!-- =========================================================
+             BARRA DE FILTROS
+             ========================================================= -->
+<section class="container-xl">
+<div class="filtro-lateral mb-4">
+<div class="row g-3 align-items-end">
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Tipo de producto</label>
+<select class="form-select">
+<option selected="" value="">Todos</option>
+</select>
+</div>
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Tipo de piel</label>
+<select class="form-select">
+<option selected="" value="">Todos</option>
+</select>
+</div>
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Marca</label>
+<select class="form-select">
+<option selected="" value="">Todas</option>
+</select>
+</div>
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Precio</label>
+<select class="form-select">
+<option selected="" value="">Todos</option>
+</select>
+</div>
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Acabado</label>
+<select class="form-select">
+<option selected="" value="">Todos</option>
+</select>
+</div>
+<div class="col-6 col-md-3 col-lg-2">
+<label class="form-label small fw-semibold mb-1">Ordenar por</label>
+<select class="form-select">
+<option selected="" value="">Más vendidos</option>
+</select>
+</div>
+<div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-outline-secondary w-100" data-limpiar-filtros="true" type="button">Limpiar filtros</button></div></div>
+</div>
+</section>
+<!-- =========================================================
+             BASE MÁS VENDIDA
+             ========================================================= -->
+<section class="seccion-funciona pt-0">
+<div class="container-xl">
+<div class="titulo-grupo-productos">
+<h2>BASE MÁS VENDIDA</h2>
+</div>
+<div class="row g-4">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base líquida" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<p class="nombre-producto">Base Líquida</p>
+</a>
+<p class="precio-producto">S/ 89.00</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base hidratante" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<p class="nombre-producto">Base Hidratante</p>
+</a>
+<p class="precio-producto">S/ 89.00</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base en polvo" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<p class="nombre-producto">Base en Polvo</p>
+</a>
+<p class="precio-producto">S/ 89.00</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-precio="89.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-precio="89.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Base serum" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<p class="nombre-producto">Base Serum</p>
+</a>
+<p class="precio-producto">S/ 89.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             CORRECTORES PARA CADA NECESIDAD
+             ========================================================= -->
+<section class="seccion-funciona pt-0">
+<div class="container-xl">
+<div class="titulo-grupo-productos">
+<h2>CORRECTORES PARA CADA NECESIDAD</h2>
+</div>
+<div class="row g-4">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="49.90" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="49.90" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Corrector líquido" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<p class="nombre-producto">Corrector Líquido</p>
+</a>
+<p class="precio-producto">S/ 49.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-precio="45.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-precio="45.00" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Corrector en barra" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<p class="nombre-producto">Corrector en Barra</p>
+</a>
+<p class="precio-producto">S/ 45.00</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-precio="49.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-precio="49.00" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Corrector en crema" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<p class="nombre-producto">Corrector en Crema</p>
+</a>
+<p class="precio-producto">S/ 49.00</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-precio="99.90" data-producto-item="true" data-tipo="sombra" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-precio="99.90" data-producto="true" data-tipo="sombra" data-tono="natural">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="producto-imagen">
+<!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
+<img alt="Paleta de correctores" src="img/producto-marcador.jpg"/>
+</div>
+</a>
+<div class="card-body">
+<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<p class="nombre-producto">Paleta de Correctores</p>
+</a>
+<p class="precio-producto">S/ 99.90</p>
+<button class="btn btn-agregar-carrito" type="button">
+                                    Agregar al carrito
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             KIT PROMOCIONAL Y TEST DE ASESORAMIENTO
+             ========================================================= -->
+<section class="seccion-funciona pt-0">
+<div class="container-xl">
+<div class="row g-4">
+<div class="col-12 col-lg-6">
+<div class="caja-destacada caja-kit h-100">
+<small>KIT ROSTRO PERFECTO — 20% OFF</small>
+<h2>Todo lo que necesitas para un acabado impecable</h2>
+<a class="btn" href="producto.html">Ver kit</a>
+</div>
+</div>
+<div class="col-12 col-lg-6">
+<div class="caja-destacada caja-test h-100">
+<h2>¿No sabes qué elegir?</h2>
+<p>Haz nuestro test y recibe recomendaciones personalizadas según tu piel y necesidades.</p>
+<a class="btn btn-cuestionario" href="cuestionario.html">Hacer test</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             BENEFICIOS DE COMPRA
+             ========================================================= -->
+<section aria-label="Beneficios de compra" class="beneficios">
+<div class="container-xl">
+<div class="row g-0">
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/ENVIO.png"/>
+<div>
+<strong>Envío rápido</strong>
+<small>Recíbelo en 24–48 h</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/SEGURIDAD.png"/>
+<div>
+<strong>Productos 100% originales</strong>
+<small>Compra con seguridad</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/PAGO.png"/>
+<div>
+<strong>Pago como quieras</strong>
+<small>Tarjeta, Yape o Plin</small>
+</div>
+</div>
+<div class="col-6 col-lg-3 beneficio-item">
+<img alt="" src="img/PAQUETE.png"/>
+<div>
+<strong>Devoluciones fáciles</strong>
+<small>Hasta 7 días</small>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================================================
+             NEWSLETTER
+             Esta sección es independiente del footer.
+             ========================================================= -->
+<section class="newsletter">
+<div class="container-xl">
+<div class="row align-items-center g-3">
+<div class="col-12 col-lg-4">
+<div class="newsletter-mensaje">
+<img alt="" src="img/enterate (1).png"/>
+<!-- ICONO DE NOVEDADES
+                                 Aquí debes colocar el icono
+                                 de megáfono.
+                            -->
+<div>
+<strong>
+
+                                    ¡Entérate de novedades y promociones exclusivas!
+
+                                </strong>
+<small>
+
+                                    Suscríbete a nuestro newsletter.
+
+                                </small>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-8 col-lg-5">
+<label class="visually-hidden" for="correo-newsletter">
+
+                            Correo electrónico
+
+                        </label>
+<input class="form-control newsletter-input" id="correo-newsletter" placeholder="Ingrese su correo" type="email"/>
+</div>
+<div class="col-12 col-md-4 col-lg-3">
+<button class="btn btn-suscribir w-100" type="button">
+
+                            SUSCRIBIRME
+
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================================================
+         FOOTER
+         Es una sección distinta del newsletter.
+         ========================================================= -->
+<footer class="footer-fy">
+<div class="container-xl">
+<div class="row gx-4 gy-1 align-items-stretch">
+<!-- COLUMNA DEL LOGO -->
+<div class="col-12 col-lg-3 footer-columna footer-marca text-center text-lg-start">
+<img alt="logo" src="img/logo.png"/>
+<p>
+
+                        Tu belleza, tu rutina, tu mejor versión.
+
+                    </p>
+</div>
+<!-- COLUMNA DE AYUDA -->
+<div class="col-12 col-lg-5 footer-columna footer-ayuda">
+<h2>
+
+                        PUNTO DE CONTACTO / AYUDA
+
+                    </h2>
+<div class="row g-3">
+<div class="col-6">
+<a href="#">
+                                Atención al cliente
+                            </a>
+<a href="#">
+                                Preguntas frecuentes
+                            </a>
+<a href="#">
+                                Envíos y entregas
+                            </a>
+</div>
+<div class="col-6 text-end">
+<a href="#">
+                                Cambios y devoluciones
+                            </a>
+<a href="#">
+                                Términos y condiciones
+                            </a>
+<a href="#">
+                                Políticas de privacidad
+                            </a>
+</div>
+</div>
+</div>
+<!-- COLUMNA DE REDES -->
+<div class="col-12 col-lg-4 footer-columna footer-redes text-center text-lg-start">
+<h2>
+
+                        CONECTA CON FYBEAUTY
+
+                    </h2>
+<div class="redes justify-content-center">
+<!-- ICONO DE FACEBOOK -->
+<a aria-label="Facebook" class="red-social-vacia" href="#">
+<img alt="" src="img/facebook.png"/>
+</a>
+<!-- ICONO DE INSTAGRAM -->
+<a aria-label="Instagram" class="red-social-vacia" href="#">
+<img alt="" src="img/instagram.png"/>
+</a>
+<!-- ICONO DE TIKTOK -->
+<a aria-label="TikTok" class="red-social-vacia" href="#">
+<img alt="" src="img/tiktok.png"/>
+</a>
+<!-- ICONO DE WHATSAPP -->
+<a aria-label="WhatsApp" class="red-social-vacia" href="#">
+<img alt="" src="img/wasapth.png"/>
+</a>
+<!-- ICONO DE X / TWITTER -->
+<a aria-label="X" class="red-social-vacia" href="#">
+<img alt="" src="img/x.png"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- COPYRIGHT -->
+<div class="copyright">
+<div class="container-xl">
+<small>
+
+                    © 2026 FyBeauty. Todos los derechos reservados.
+
+                </small>
+</div>
+</div>
+</footer>
+<!-- BOOTSTRAP JS -->
+<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script src="js/misProgramas.js"></script></body>
+</html>
