@@ -6,8 +6,9 @@
 
 /* =============================================================
    RUTAS DEL CATÁLOGO
-   Cada categoría usa catalogo.html; la página antigua queda como
-   fuente del contenido específico: hero, filtros y productos.
+   Todas las páginas de productos existentes usan catalogo.html.
+   La página antigua queda como fuente del contenido específico:
+   hero, filtros y productos.
    ============================================================= */
 const rutasCatalogo = {
     "maquillaje-rostro-base.html": "base",
@@ -24,17 +25,7 @@ const rutasCatalogo = {
     "maquillaje-labios-gloss.html": "gloss",
     "maquillaje-labios-delineadores.html": "delineadores-labios",
     "maquillaje-labios-tintas.html": "tintas",
-    "maquillaje-labios-balsamos.html": "balsamos",
-    "skincare-limpiadores.html": "limpiadores",
-    "skincare-hidratantes.html": "hidratantes",
-    "skincare-bloqueadores.html": "bloqueadores",
-    "skincare-piel-seca.html": "piel-seca",
-    "skincare-piel-grasa.html": "piel-grasa",
-    "skincare-piel-sensible.html": "piel-sensible",
-    "skincare-piel-normal.html": "piel-normal",
-    "accesorios-brochas.html": "brochas",
-    "accesorios-rizadores.html": "rizadores",
-    "accesorios-esponjas.html": "esponjas"
+    "maquillaje-labios-balsamos.html": "balsamos"
 };
 
 const fuentesCatalogo = Object.fromEntries(
