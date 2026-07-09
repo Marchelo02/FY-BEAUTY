@@ -1,7 +1,0 @@
-precio_options=4
-orden_options=4
-general_filter_buttons=4
-change_listeners=0
-range_input_listener=False
-buscador_input_listener=False
-errors=[]
