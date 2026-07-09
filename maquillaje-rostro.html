@@ -333,41 +333,41 @@
 <div class="row g-3 align-items-end">
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Tipo de producto</label>
-<select class="form-select">
+<select class="form-select" data-filtro="tipo">
 <option selected="" value="">Todos</option>
-</select>
+<option>Base</option><option>Corrector</option><option>Sombra</option></select>
 </div>
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Tipo de piel</label>
-<select class="form-select">
+<select class="form-select" data-filtro="piel">
 <option selected="" value="">Todos</option>
-</select>
+<option>Grasa</option><option>Normal</option><option>Seca</option><option>Sensible</option></select>
 </div>
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Marca</label>
-<select class="form-select">
+<select class="form-select" data-filtro="marca">
 <option selected="" value="">Todas</option>
-</select>
+<option>Fybeauty</option></select>
 </div>
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Precio</label>
-<select class="form-select">
+<select class="form-select" data-filtro="precio">
 <option selected="" value="">Todos</option>
 </select>
 </div>
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Acabado</label>
-<select class="form-select">
+<select class="form-select" data-filtro="acabado">
 <option selected="" value="">Todos</option>
-</select>
+<option>Crema</option><option>Hidratante</option><option>Liquida</option><option>Liquido</option><option>Natural</option><option>Polvo</option></select>
 </div>
 <div class="col-6 col-md-3 col-lg-2">
 <label class="form-label small fw-semibold mb-1">Ordenar por</label>
-<select class="form-select">
+<select class="form-select" data-filtro="orden">
 <option selected="" value="">Más vendidos</option>
 </select>
 </div>
-<div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-outline-secondary w-100" data-limpiar-filtros="true" type="button">Limpiar filtros</button></div></div>
+<div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-filtrar w-100" type="button">Filtrar</button></div><div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-outline-secondary w-100" data-limpiar-filtros="true" type="button">Limpiar filtros</button></div></div>
 </div>
 </section>
 <!-- =========================================================
@@ -379,77 +379,77 @@
 <h2>BASE MÁS VENDIDA</h2>
 </div>
 <div class="row g-4">
-<div class="col-6 col-md-4 col-lg-3" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
-<div class="card card-producto" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-piel="normal" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="liquida" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base liquida" data-piel="normal" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1137">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Base líquida" src="img/producto-marcador.jpg"/>
+<img alt="Base líquida" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<a class="enlace-producto" href="producto.html?id=1137">
 <p class="nombre-producto">Base Líquida</p>
 </a>
 <p class="precio-producto">S/ 89.00</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1137" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
-<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-piel="seca" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="hidratante" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base hidratante" data-piel="seca" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1138">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Base hidratante" src="img/producto-marcador.jpg"/>
+<img alt="Base hidratante" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<a class="enlace-producto" href="producto.html?id=1138">
 <p class="nombre-producto">Base Hidratante</p>
 </a>
 <p class="precio-producto">S/ 89.00</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1138" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
-<div class="card card-producto" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-piel="grasa" data-precio="89.00" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="polvo" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base en polvo" data-piel="grasa" data-precio="89.00" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1139">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Base en polvo" src="img/producto-marcador.jpg"/>
+<img alt="Base en polvo" src="img/Corrector/corrector líquido petrizzio wonder skin light 01.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<a class="enlace-producto" href="producto.html?id=1139">
 <p class="nombre-producto">Base en Polvo</p>
 </a>
 <p class="precio-producto">S/ 89.00</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1139" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-precio="89.90" data-producto-item="true" data-tipo="base" data-tono="natural">
-<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-precio="89.90" data-producto="true" data-tipo="base" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-piel="sensible" data-precio="89.90" data-producto-item="true" data-tipo="base" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="base serum" data-piel="sensible" data-precio="89.90" data-producto="true" data-tipo="base" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1140">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Base serum" src="img/producto-marcador.jpg"/>
+<img alt="Base serum" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-base.html">
+<a class="enlace-producto" href="producto.html?id=1140">
 <p class="nombre-producto">Base Serum</p>
 </a>
 <p class="precio-producto">S/ 89.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1140" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -467,77 +467,77 @@
 <h2>CORRECTORES PARA CADA NECESIDAD</h2>
 </div>
 <div class="row g-4">
-<div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="49.90" data-producto-item="true" data-tipo="corrector" data-tono="natural">
-<div class="card card-producto" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="49.90" data-producto="true" data-tipo="corrector" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-piel="normal" data-precio="49.90" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="liquido" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-piel="normal" data-precio="49.90" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1141">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Corrector líquido" src="img/producto-marcador.jpg"/>
+<img alt="Corrector líquido" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<a class="enlace-producto" href="producto.html?id=1141">
 <p class="nombre-producto">Corrector Líquido</p>
 </a>
 <p class="precio-producto">S/ 49.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1141" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-precio="45.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
-<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-precio="45.00" data-producto="true" data-tipo="corrector" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-piel="seca" data-precio="45.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en barra" data-piel="seca" data-precio="45.00" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1142">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Corrector en barra" src="img/producto-marcador.jpg"/>
+<img alt="Corrector en barra" src="img/Corrector/corrector líquido petrizzio wonder skin light 01.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<a class="enlace-producto" href="producto.html?id=1142">
 <p class="nombre-producto">Corrector en Barra</p>
 </a>
 <p class="precio-producto">S/ 45.00</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1142" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-precio="49.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
-<div class="card card-producto" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-precio="49.00" data-producto="true" data-tipo="corrector" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-piel="grasa" data-precio="49.00" data-producto-item="true" data-tipo="corrector" data-tono="natural">
+<div class="card card-producto" data-acabado="crema" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="corrector en crema" data-piel="grasa" data-precio="49.00" data-producto="true" data-tipo="corrector" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1143">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Corrector en crema" src="img/producto-marcador.jpg"/>
+<img alt="Corrector en crema" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<a class="enlace-producto" href="producto.html?id=1143">
 <p class="nombre-producto">Corrector en Crema</p>
 </a>
 <p class="precio-producto">S/ 49.00</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1143" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
 </div>
 </div>
-<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-precio="99.90" data-producto-item="true" data-tipo="sombra" data-tono="natural">
-<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-precio="99.90" data-producto="true" data-tipo="sombra" data-tono="natural">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-piel="sensible" data-precio="99.90" data-producto-item="true" data-tipo="sombra" data-tono="natural">
+<div class="card card-producto" data-acabado="natural" data-categoria="rostro" data-color="natural" data-marca="fybeauty" data-nombre="paleta de correctores" data-piel="sensible" data-precio="99.90" data-producto="true" data-tipo="sombra" data-tono="natural">
+<a class="enlace-producto" href="producto.html?id=1144">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Paleta de correctores" src="img/producto-marcador.jpg"/>
+<img alt="Paleta de correctores" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="maquillaje-rostro-corrector.html">
+<a class="enlace-producto" href="producto.html?id=1144">
 <p class="nombre-producto">Paleta de Correctores</p>
 </a>
 <p class="precio-producto">S/ 99.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1144" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -747,6 +747,5 @@
 <!-- BOOTSTRAP JS -->
 <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
-
 <script src="js/misProgramas.js"></script></body>
 </html>

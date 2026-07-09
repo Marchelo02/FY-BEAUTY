@@ -276,7 +276,20 @@
 <!-- =========================================================
              ROSTRO — PRODUCTOS DESTACADOS
              ========================================================= -->
-<section class="seccion-funciona">
+<section class="container-xl py-3 seccion-filtros-productos">
+<div class="filtro-lateral mb-4 filtro-responsive">
+<div aria-label="Filtrar productos" class="row g-3 align-items-end" role="group">
+<div class="col-12 fw-semibold">Filtrar por:</div>
+<div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Tipo de producto</label><select class="form-select" data-filtro="tipo"><option value="">Tipo de producto</option><option>Base</option><option>Corrector</option><option>Delineador</option><option>Iluminador</option><option>Mascara</option><option>Polvo</option><option>Sombra</option></select></div>
+<div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Marca</label><select class="form-select" data-filtro="marca"><option value="">Marca</option><option>Fybeauty</option></select></div>
+<div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Precio</label><select class="form-select" data-filtro="precio"><option value="">Precio</option><option>S/ 0 - S/ 50</option><option>S/ 50 - S/ 100</option><option>Más de S/ 100</option></select></div>
+<div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Acabado</label><select class="form-select" data-filtro="acabado"><option value="">Acabado</option><option>Liquido</option><option>Mate Liquida</option><option>Natural</option><option>Polvo</option></select></div>
+<div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Ordenar por</label><select class="form-select" data-filtro="orden"><option value="">Más vendidos</option><option>Menor precio</option><option>Mayor precio</option><option>Novedades</option></select></div>
+<div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-filtrar w-100" type="button">Filtrar</button></div>
+<div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-outline-secondary w-100" data-limpiar-filtros="true" type="button">Limpiar filtros</button></div>
+</div>
+</div>
+</section><section class="seccion-funciona">
 <div class="container-xl">
 <div class="titulo-grupo-productos">
 <div class="espacio-icono-beneficio">
@@ -288,18 +301,18 @@
 <div class="row g-4">
 <div class="col-6 col-md-4 col-lg-3" data-acabado="mate liquida" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="base liquida mate" data-precio="69.90" data-producto-item="true" data-tipo="base" data-tono="natural">
 <div class="card card-producto" data-acabado="mate liquida" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="base liquida mate" data-precio="69.90" data-producto="true" data-tipo="base" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1145">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Base líquida mate para rostro" src="img/producto-marcador.jpg"/>
+<img alt="Base líquida mate para rostro" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1145">
 <p class="nombre-producto">Base Líquida Mate</p>
 </a>
 <p class="precio-producto">S/ 69.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1145" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -307,18 +320,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="59.90" data-producto-item="true" data-tipo="corrector" data-tono="natural">
 <div class="card card-producto" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="corrector liquido" data-precio="59.90" data-producto="true" data-tipo="corrector" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1146">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Corrector líquido para rostro" src="img/producto-marcador.jpg"/>
+<img alt="Corrector líquido para rostro" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1146">
 <p class="nombre-producto">Corrector Líquido</p>
 </a>
 <p class="precio-producto">S/ 59.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1146" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -326,18 +339,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="polvo" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="polvo compacto" data-precio="59.90" data-producto-item="true" data-tipo="polvo" data-tono="natural">
 <div class="card card-producto" data-acabado="polvo" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="polvo compacto" data-precio="59.90" data-producto="true" data-tipo="polvo" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1147">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Polvo compacto para rostro" src="img/producto-marcador.jpg"/>
+<img alt="Polvo compacto para rostro" src="img/Corrector/corrector líquido petrizzio wonder skin light 01.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1147">
 <p class="nombre-producto">Polvo Compacto</p>
 </a>
 <p class="precio-producto">S/ 59.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1147" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -345,18 +358,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="iluminador liquido" data-precio="69.90" data-producto-item="true" data-tipo="iluminador" data-tono="natural">
 <div class="card card-producto" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="iluminador liquido" data-precio="69.90" data-producto="true" data-tipo="iluminador" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1148">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Iluminador líquido para rostro" src="img/producto-marcador.jpg"/>
+<img alt="Iluminador líquido para rostro" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1148">
 <p class="nombre-producto">Iluminador Líquido</p>
 </a>
 <p class="precio-producto">S/ 69.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1148" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -380,18 +393,18 @@
 <div class="row g-4">
 <div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="mascara de pestanas" data-precio="59.90" data-producto-item="true" data-tipo="mascara" data-tono="natural">
 <div class="card card-producto" data-acabado="natural" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="mascara de pestanas" data-precio="59.90" data-producto="true" data-tipo="mascara" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1149">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Máscara de pestañas" src="img/producto-marcador.jpg"/>
+<img alt="Máscara de pestañas" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1149">
 <p class="nombre-producto">Máscara de Pestañas</p>
 </a>
 <p class="precio-producto">S/ 59.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1149" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -399,18 +412,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="maquillaje" data-color="nude" data-marca="fybeauty" data-nombre="paleta de sombras nude" data-precio="69.90" data-producto-item="true" data-tipo="sombra" data-tono="nude">
 <div class="card card-producto" data-acabado="natural" data-categoria="maquillaje" data-color="nude" data-marca="fybeauty" data-nombre="paleta de sombras nude" data-precio="69.90" data-producto="true" data-tipo="sombra" data-tono="nude">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1150">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Paleta de sombras nude" src="img/producto-marcador.jpg"/>
+<img alt="Paleta de sombras nude" src="img/Corrector/corrector líquido petrizzio wonder skin light 01.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1150">
 <p class="nombre-producto">Paleta de Sombras Nude</p>
 </a>
 <p class="precio-producto">S/ 69.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1150" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -418,18 +431,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="delineador liquido" data-precio="49.90" data-producto-item="true" data-tipo="delineador" data-tono="natural">
 <div class="card card-producto" data-acabado="liquido" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="delineador liquido" data-precio="49.90" data-producto="true" data-tipo="delineador" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1151">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Delineador líquido" src="img/producto-marcador.jpg"/>
+<img alt="Delineador líquido" src="img/Bases/base foundation stick 111 essence.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1151">
 <p class="nombre-producto">Delineador Líquido</p>
 </a>
 <p class="precio-producto">S/ 49.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1151" type="button">
                                     Agregar al carrito
                                 </button>
 </div>
@@ -437,18 +450,18 @@
 </div>
 <div class="col-6 col-md-4 col-lg-3" data-acabado="natural" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="fortalecedor de pestanas" data-precio="69.90" data-producto-item="true" data-tipo="mascara" data-tono="natural">
 <div class="card card-producto" data-acabado="natural" data-categoria="maquillaje" data-color="natural" data-marca="fybeauty" data-nombre="fortalecedor de pestanas" data-precio="69.90" data-producto="true" data-tipo="mascara" data-tono="natural">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1152">
 <div class="producto-imagen">
 <!-- IMAGEN DE PRODUCTO (usar imagen de ejemplo) -->
-<img alt="Fortalecedor de pestañas" src="img/producto-marcador.jpg"/>
+<img alt="Fortalecedor de pestañas" src="img/Corrector/corrector fit me 0.23 fl oz tono deep maybelline.webp"/>
 </div>
 </a>
 <div class="card-body">
-<a class="enlace-producto" href="producto.html">
+<a class="enlace-producto" href="producto.html?id=1152">
 <p class="nombre-producto">Fortalecedor de Pestañas</p>
 </a>
 <p class="precio-producto">S/ 69.90</p>
-<button class="btn btn-agregar-carrito" type="button">
+<button class="btn btn-agregar-carrito" data-id="1152" type="button">
                                     Agregar al carrito
                                 </button>
 </div>

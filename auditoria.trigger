@@ -1,1 +1,0 @@
-Ejecutar auditoría temporal.
