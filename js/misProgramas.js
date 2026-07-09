@@ -1,14 +1,12 @@
 /* =============================================================
    FYBEAUTY - JAVASCRIPT GENERAL
-   Un único archivo para funciones generales, detalle de producto
-   y catálogo dinámico.
+   Un único archivo JS para funciones generales, producto y catálogo.
    ============================================================= */
 
 /* =============================================================
-   RUTAS DEL CATÁLOGO
-   Todas las páginas de productos existentes usan catalogo.html.
-   La página antigua queda como fuente del contenido específico:
-   hero, filtros y productos.
+   CATÁLOGO: ENLACES ANTIGUOS Y FUENTES INTERNAS
+   Las páginas antiguas ya no existen como HTML navegables.
+   Su contenido se conserva en /datos/catalogo como fuente interna.
    ============================================================= */
 const rutasCatalogo = {
     "maquillaje-rostro-base.html": "base",
@@ -28,22 +26,29 @@ const rutasCatalogo = {
     "maquillaje-labios-balsamos.html": "balsamos"
 };
 
-const fuentesCatalogo = Object.fromEntries(
-    Object.entries(rutasCatalogo).map(([archivo, categoria]) => [categoria, archivo])
-);
+const fuentesCatalogo = {
+    base: "datos/catalogo/base.txt",
+    contorno: "datos/catalogo/contorno.txt",
+    corrector: "datos/catalogo/corrector.txt",
+    iluminador: "datos/catalogo/iluminador.txt",
+    polvo: "datos/catalogo/polvo.txt",
+    rubor: "datos/catalogo/rubor.txt",
+    sombras: "datos/catalogo/sombras.txt",
+    mascara: "datos/catalogo/mascara.txt",
+    "delineador-ojos": "datos/catalogo/delineador-ojos.txt",
+    cejas: "datos/catalogo/cejas.txt",
+    labiales: "datos/catalogo/labiales.txt",
+    gloss: "datos/catalogo/gloss.txt",
+    "delineadores-labios": "datos/catalogo/delineadores-labios.txt",
+    tintas: "datos/catalogo/tintas.txt",
+    balsamos: "datos/catalogo/balsamos.txt"
+};
 
 const paginaActual = window.location.pathname.split("/").pop() || "index.html";
-const catalogoDisponible = window.location.protocol !== "file:";
-
-/* Las URLs antiguas siguen funcionando, pero muestran la plantilla única.
-   En file:// se mantienen para no romper la vista sin servidor local. */
-if (catalogoDisponible && rutasCatalogo[paginaActual]) {
-    window.location.replace(`catalogo.html?categoria=${encodeURIComponent(rutasCatalogo[paginaActual])}`);
-}
 
 /* =============================================================
    PRODUCTOS DEL DETALLE producto.html
-   Se conserva en el mismo archivo JS por indicación del proyecto.
+   Se mantiene en el mismo JS por la estructura solicitada.
    ============================================================= */
 const productos = [
     {
@@ -161,29 +166,45 @@ const productos = [
 ];
 
 /* =============================================================
-   FUNCIONES GENERALES
+   UTILIDADES
    ============================================================= */
-const normalizar = (texto) => (texto || "")
-    .toString()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\(\d+\)/g, "")
-    .replace(/[^a-z0-9\.\s/-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function normalizar(texto) {
+    return (texto || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\(\d+\)/g, "")
+        .replace(/[^a-z0-9.\s/-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
 
 function reescribirEnlacesCatalogo() {
-    if (!catalogoDisponible) return;
-
     document.querySelectorAll("a[href]").forEach((enlace) => {
         const href = enlace.getAttribute("href");
-        if (rutasCatalogo[href]) {
-            enlace.setAttribute("href", `catalogo.html?categoria=${encodeURIComponent(rutasCatalogo[href])}`);
+        const categoria = rutasCatalogo[href];
+
+        if (categoria) {
+            enlace.setAttribute(
+                "href",
+                `catalogo.html?categoria=${encodeURIComponent(categoria)}`
+            );
         }
     });
 }
 
+function ejecutarSeguro(nombre, funcion) {
+    try {
+        funcion();
+    } catch (error) {
+        console.error(`FyBeauty - error en ${nombre}:`, error);
+    }
+}
+
+/* =============================================================
+   MENÚ Y ANIMACIONES
+   ============================================================= */
 function inicializarSubmenus() {
     document.querySelectorAll(".toggle-submenu").forEach((boton) => {
         if (boton.dataset.inicializado === "true") return;
@@ -191,8 +212,10 @@ function inicializarSubmenus() {
 
         boton.addEventListener("click", (evento) => {
             evento.preventDefault();
+
             const submenu = boton.nextElementSibling;
             if (!submenu) return;
+
             const abierto = submenu.classList.contains("abierto");
             submenu.classList.toggle("abierto", !abierto);
             boton.setAttribute("aria-expanded", String(!abierto));
@@ -202,7 +225,7 @@ function inicializarSubmenus() {
 
 function inicializarMenuActivo() {
     const categoria = new URLSearchParams(window.location.search).get("categoria");
-    const fuente = categoria ? fuentesCatalogo[categoria] : "";
+    const fuente = categoria ? fuentesCatalogo[categoria] || "" : "";
 
     document.querySelectorAll(".menu-link").forEach((enlace) => {
         enlace.classList.remove("active");
@@ -211,9 +234,18 @@ function inicializarMenuActivo() {
         const href = enlace.getAttribute("href");
         const seccion = enlace.dataset.seccion;
         const coincideExacto = href === paginaActual;
-        const perteneceASeccion = seccion && (
-            paginaActual.startsWith(`${seccion}-`) || fuente.startsWith(`${seccion}-`)
-        );
+
+        let perteneceASeccion = false;
+
+        if (seccion === "maquillaje" && fuente) {
+            perteneceASeccion = [
+                "base", "contorno", "corrector", "iluminador", "polvo", "rubor",
+                "sombras", "mascara", "delineador-ojos", "cejas",
+                "labiales", "gloss", "delineadores-labios", "tintas", "balsamos"
+            ].includes(categoria);
+        } else if (seccion) {
+            perteneceASeccion = paginaActual.startsWith(`${seccion}-`);
+        }
 
         if (coincideExacto || perteneceASeccion) {
             enlace.classList.add("active");
@@ -224,15 +256,16 @@ function inicializarMenuActivo() {
 
 function inicializarAnimaciones() {
     const tarjetas = document.querySelectorAll(".card-funciona");
+
     if (!tarjetas.length || !("IntersectionObserver" in window)) return;
 
     const observador = new IntersectionObserver((entradas) => {
         entradas.forEach((entrada) => {
-            if (entrada.isIntersecting) {
-                entrada.target.style.opacity = "1";
-                entrada.target.style.transform = "translateY(0px)";
-                observador.unobserve(entrada.target);
-            }
+            if (!entrada.isIntersecting) return;
+
+            entrada.target.style.opacity = "1";
+            entrada.target.style.transform = "translateY(0px)";
+            observador.unobserve(entrada.target);
         });
     });
 
@@ -245,17 +278,22 @@ function inicializarAnimaciones() {
 }
 
 /* =============================================================
-   DETALLE DINÁMICO DE PRODUCTO
+   DETALLE DE PRODUCTO
    ============================================================= */
 function inicializarDetalleProducto() {
     const seccionDetalle = document.getElementById("producto-detalle");
     const seccionNoEncontrado = document.getElementById("producto-no-encontrado");
+
     if (!seccionDetalle || !seccionNoEncontrado) return;
 
     const idParam = new URLSearchParams(window.location.search).get("id");
     const idNumerico = Number(idParam);
-    const idEsValido = idParam !== null && idParam !== "" && !Number.isNaN(idNumerico);
-    const producto = idEsValido ? productos.find((item) => item.id === idNumerico) : null;
+
+    const producto = idParam !== null &&
+        idParam !== "" &&
+        !Number.isNaN(idNumerico)
+        ? productos.find((item) => item.id === idNumerico)
+        : null;
 
     if (!producto) {
         seccionDetalle.classList.add("d-none");
@@ -278,66 +316,99 @@ function inicializarDetalleProducto() {
         imagen.src = producto.imagen;
         imagen.alt = producto.nombre;
     }
+
     if (nombre) nombre.textContent = producto.nombre;
     if (precio) precio.textContent = `S/ ${producto.precio.toFixed(2)}`;
     if (descripcion) descripcion.textContent = producto.descripcion;
     if (botonCarrito) botonCarrito.dataset.id = producto.id;
+
     if (migaCategoria && producto.categoria) {
-        migaCategoria.innerHTML = `<a href="${producto.categoria.enlace}">${producto.categoria.nombre}</a>`;
+        migaCategoria.innerHTML =
+            `<a href="${producto.categoria.enlace}">${producto.categoria.nombre}</a>`;
     }
+
     if (migaProducto) migaProducto.textContent = producto.nombre;
 }
 
 /* =============================================================
    CATÁLOGO ÚNICO
-   catalogo.html?categoria=cejas
    ============================================================= */
 async function cargarCatalogo() {
     const catalogoMain = document.getElementById("catalogo-main");
-    if (!catalogoMain) return;
+    if (!catalogoMain) return false;
 
     const categoria = new URLSearchParams(window.location.search).get("categoria");
     const fuente = categoria ? fuentesCatalogo[categoria] : null;
 
     if (!fuente) {
         mostrarErrorCatalogo(catalogoMain, "La categoría solicitada no existe.");
-        return;
+        return false;
     }
 
+    let documentoFuente;
+
+    /* El try/catch SOLO controla la carga y lectura del contenido.
+       Los filtros se inicializan después y no pueden borrar el catálogo. */
     try {
-        const respuesta = await fetch(fuente);
-        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
+        const urlFuente = new URL(fuente, document.baseURI);
+        const respuesta = await fetch(urlFuente.href, { cache: "no-store" });
+
+        if (!respuesta.ok) {
+            throw new Error(`No se encontró ${urlFuente.pathname}. HTTP ${respuesta.status}`);
+        }
 
         const html = await respuesta.text();
-        const documentoFuente = new DOMParser().parseFromString(html, "text/html");
-        const breadcrumb = documentoFuente.querySelector(".breadcrumb-contenedor");
-        const mainFuente = documentoFuente.querySelector("main");
+        documentoFuente = new DOMParser().parseFromString(html, "text/html");
 
-        if (!mainFuente) throw new Error("La página fuente no contiene un elemento main.");
-
-        const contenidoPrincipal = Array.from(mainFuente.children)
-            .filter((elemento) => !elemento.matches(".newsletter"))
-            .map((elemento) => elemento.outerHTML)
-            .join("");
-
-        catalogoMain.innerHTML = `${breadcrumb ? breadcrumb.outerHTML : ""}${contenidoPrincipal}`;
-
-        if (documentoFuente.title) document.title = documentoFuente.title;
-        const descripcionFuente = documentoFuente.querySelector('meta[name="description"]')?.content;
-        const metaDescripcion = document.querySelector('meta[name="description"]');
-        if (descripcionFuente && metaDescripcion) metaDescripcion.content = descripcionFuente;
-
-        reescribirEnlacesCatalogo();
-        inicializarFiltrosProductos();
-        inicializarBuscadorProductos();
-        inicializarAnimaciones();
+        const errorParser = documentoFuente.querySelector("parsererror");
+        if (errorParser) throw new Error("El contenido del catálogo no pudo interpretarse.");
     } catch (error) {
-        console.error("No se pudo cargar el catálogo:", error);
+        console.error("FyBeauty - error cargando catálogo:", error);
         mostrarErrorCatalogo(
             catalogoMain,
-            "No se pudo cargar el catálogo. Abre el proyecto con Live Server o desde un servidor web."
+            "No se pudo leer la información de esta categoría. Revisa la consola del navegador."
         );
+        return false;
     }
+
+    const breadcrumb = documentoFuente.querySelector(".breadcrumb-contenedor");
+    const mainFuente = documentoFuente.querySelector("main");
+
+    if (!mainFuente) {
+        mostrarErrorCatalogo(
+            catalogoMain,
+            "La información de esta categoría no contiene una sección principal válida."
+        );
+        return false;
+    }
+
+    const contenidoPrincipal = Array.from(mainFuente.children)
+        .filter((elemento) => !elemento.matches(".newsletter"))
+        .map((elemento) => elemento.outerHTML)
+        .join("");
+
+    catalogoMain.innerHTML =
+        `${breadcrumb ? breadcrumb.outerHTML : ""}${contenidoPrincipal}`;
+
+    if (documentoFuente.title) {
+        document.title = documentoFuente.title;
+    }
+
+    const descripcionFuente =
+        documentoFuente.querySelector('meta[name="description"]')?.content;
+    const metaDescripcion = document.querySelector('meta[name="description"]');
+
+    if (descripcionFuente && metaDescripcion) {
+        metaDescripcion.content = descripcionFuente;
+    }
+
+    /* Estas funciones ya NO forman parte del try/catch de carga. */
+    ejecutarSeguro("enlaces del catálogo", reescribirEnlacesCatalogo);
+    ejecutarSeguro("filtros de productos", inicializarFiltrosProductos);
+    ejecutarSeguro("buscador de productos", inicializarBuscadorProductos);
+    ejecutarSeguro("animaciones del catálogo", inicializarAnimaciones);
+
+    return true;
 }
 
 function mostrarErrorCatalogo(contenedor, mensaje) {
@@ -346,35 +417,55 @@ function mostrarErrorCatalogo(contenedor, mensaje) {
             <h1 class="titulo-principal">CATÁLOGO</h1>
             <p>${mensaje}</p>
             <a class="btn btn-ver-mas" href="inicio.html">VOLVER AL INICIO</a>
-        </div>`;
+        </div>
+    `;
 }
 
 /* =============================================================
-   FILTROS DINÁMICOS
-   Lee los filtros presentes en cada categoría. Por eso Cejas,
-   Sombras, Base, Skincare o Accesorios pueden tener filtros distintos.
+   FILTROS DE PRODUCTOS
+   La función interpreta los grupos presentes en cada categoría.
+   Por eso Cejas y Sombras pueden conservar filtros diferentes.
    ============================================================= */
 function inicializarFiltrosProductos() {
     const cards = Array.from(document.querySelectorAll(".card-producto"));
     const filtroLateral = document.querySelector(".filtro-lateral");
+
     if (!cards.length || !filtroLateral) return;
+    if (filtroLateral.dataset.filtrosInicializados === "true") return;
 
-    const itemProducto = (card) =>
-        card.closest('[data-producto-item="true"]') || card.closest('[class*="col-"]') || card;
+    filtroLateral.dataset.filtrosInicializados = "true";
 
-    const obtenerPrecio = (card) => {
-        const directo = card.dataset.precio || itemProducto(card).dataset.precio;
-        if (directo) return parseFloat(directo.replace(",", ".")) || 0;
-        const match = (card.textContent || "").match(/S\/\s*([0-9]+(?:[\.,][0-9]{1,2})?)/i);
-        return match ? parseFloat(match[1].replace(",", ".")) : 0;
-    };
+    function obtenerItem(card) {
+        return card.closest('[data-producto-item="true"]') ||
+            card.closest('[class*="col-"]') ||
+            card;
+    }
+
+    function obtenerPrecio(card, item) {
+        const directo = card.dataset.precio || item.dataset.precio;
+
+        if (directo) {
+            return parseFloat(directo.replace(",", ".")) || 0;
+        }
+
+        const texto = card.textContent || "";
+        const match = texto.match(/S\/\s*([0-9]+(?:[.,][0-9]{1,2})?)/i);
+
+        return match
+            ? parseFloat(match[1].replace(",", "."))
+            : 0;
+    }
 
     const listaProductos = cards.map((card) => {
-        const item = itemProducto(card);
-        const datasets = { ...item.dataset, ...card.dataset };
-        const textoDatos = Object.values(datasets).join(" ");
-        const nombreVisible = card.querySelector(".nombre-producto")?.textContent || card.textContent;
-        const precio = obtenerPrecio(card);
+        const item = obtenerItem(card);
+        const precio = obtenerPrecio(card, item);
+        const nombreVisible =
+            card.querySelector(".nombre-producto")?.textContent || card.textContent || "";
+
+        const textoDatos = [
+            ...Object.values(item.dataset),
+            ...Object.values(card.dataset)
+        ].join(" ");
 
         card.dataset.precio = precio.toFixed(2);
         item.dataset.precio = precio.toFixed(2);
@@ -383,7 +474,7 @@ function inicializarFiltrosProductos() {
             card,
             item,
             precio,
-            nombre: normalizar(card.dataset.nombre || nombreVisible),
+            nombre: normalizar(card.dataset.nombre || item.dataset.nombre || nombreVisible),
             texto: normalizar(`${nombreVisible} ${textoDatos}`),
             tipo: normalizar(card.dataset.tipo || item.dataset.tipo),
             categoria: normalizar(card.dataset.categoria || item.dataset.categoria),
@@ -396,83 +487,128 @@ function inicializarFiltrosProductos() {
         };
     });
 
-    const precioMaximo = Math.ceil(Math.max(...listaProductos.map((producto) => producto.precio), 0));
+    const precioMaximo = Math.ceil(
+        Math.max(...listaProductos.map((producto) => producto.precio), 0)
+    );
 
     document.querySelectorAll('.filtro-lateral input[type="range"]').forEach((range) => {
-        range.min = 0;
-        range.max = precioMaximo;
-        range.value = precioMaximo;
+        range.min = "0";
+        range.max = String(precioMaximo);
+        range.value = String(precioMaximo);
+
         const grupo = range.closest(".filtro-grupo, .filtro-lateral");
-        const spans = grupo?.querySelectorAll(".filtro-precio-valores span");
-        if (spans?.[0]) spans[0].textContent = "S/ 0";
-        if (spans?.[1]) spans[1].textContent = `S/ ${precioMaximo}`;
+        const valores = grupo?.querySelector(".filtro-precio-valores");
+        const spans = valores ? valores.querySelectorAll("span") : [];
+
+        if (spans[0]) spans[0].textContent = "S/ 0";
+        if (spans[1]) spans[1].textContent = `S/ ${precioMaximo}`;
     });
 
     function campoDesdeGrupo(elemento) {
         const grupo = elemento.closest(".filtro-grupo");
-        if (grupo?.dataset.filtro) return normalizar(grupo.dataset.filtro);
 
-        const titulo = normalizar(
-            grupo?.querySelector("h2, h3, h4, p, strong, .filtro-titulo")?.textContent || ""
+        if (grupo?.dataset.filtro) {
+            return normalizar(grupo.dataset.filtro);
+        }
+
+        const tituloElemento = grupo?.querySelector(
+            "h2, h3, h4, p, strong, .filtro-titulo"
         );
+        const titulo = normalizar(tituloElemento?.textContent || "");
 
         if (titulo.includes("marca")) return "marca";
-        if (titulo.includes("acabado") || titulo.includes("textura") || titulo.includes("efecto")) return "acabado";
+        if (titulo.includes("acabado")) return "acabado";
+        if (titulo.includes("textura")) return "acabado";
+        if (titulo.includes("efecto")) return "acabado";
         if (titulo.includes("cobertura")) return "cobertura";
         if (titulo.includes("formato")) return "formato";
         if (titulo.includes("tono")) return "tono";
         if (titulo.includes("color")) return "color";
         if (titulo.includes("categoria")) return "categoria";
         if (titulo.includes("tipo")) return "tipo";
-        return titulo || normalizar(elemento.dataset.filtro || elemento.name);
+
+        return normalizar(elemento.dataset.filtro || elemento.name || titulo);
     }
 
-    function etiquetaCheckbox(check) {
+    function obtenerEtiquetaCheckbox(check) {
         if (check.id) {
-            const label = document.querySelector(`label[for="${CSS.escape(check.id)}"]`);
-            if (label) return label.textContent;
+            const labels = document.querySelectorAll("label[for]");
+            const label = Array.from(labels).find(
+                (elemento) => elemento.getAttribute("for") === check.id
+            );
+
+            if (label) return label.textContent || "";
         }
+
         return check.closest(".form-check")?.querySelector("label")?.textContent || "";
     }
 
-    function filtrosActivos() {
+    function obtenerFiltrosActivos() {
         const activos = {};
 
-        document.querySelectorAll('.filtro-lateral select').forEach((select) => {
+        document.querySelectorAll(".filtro-lateral select").forEach((select) => {
             if (!select.value) return;
+
             const campo = normalizar(select.dataset.filtro) || campoDesdeGrupo(select);
             const valor = normalizar(select.value);
-            const valoresSinFiltro = [
+
+            const placeholders = [
                 "todos", "todas", "tipo de producto", "marca", "buscar marca",
                 "precio", "acabado", "tono", "color", "formato", "cobertura"
             ];
-            if (!campo || !valor || valoresSinFiltro.includes(valor)) return;
+
+            if (!campo || !valor || placeholders.includes(valor)) return;
             activos[campo] = valor;
         });
 
-        document.querySelectorAll('.filtro-lateral input[type="checkbox"]:checked').forEach((check) => {
-            const campo = campoDesdeGrupo(check);
-            const valor = normalizar(check.value && check.value !== "on" ? check.value : etiquetaCheckbox(check));
-            if (!campo || !valor) return;
-            activos[campo] ||= [];
-            activos[campo].push(valor);
-        });
+        document
+            .querySelectorAll('.filtro-lateral input[type="checkbox"]:checked')
+            .forEach((check) => {
+                const campo = campoDesdeGrupo(check);
+                const valorOriginal =
+                    check.value && check.value !== "on"
+                        ? check.value
+                        : obtenerEtiquetaCheckbox(check);
+                const valor = normalizar(valorOriginal);
 
-        const tonosActivos = Array.from(document.querySelectorAll('.filtro-lateral .tono-swatch[aria-pressed="true"]'))
+                if (!campo || !valor) return;
+
+                if (!activos[campo]) activos[campo] = [];
+                activos[campo].push(valor);
+            });
+
+        const tonosActivos = Array.from(
+            document.querySelectorAll(
+                '.filtro-lateral .tono-swatch[aria-pressed="true"]'
+            )
+        )
             .map((boton) => normalizar(boton.getAttribute("aria-label")))
             .filter(Boolean);
-        if (tonosActivos.length) activos.tono = tonosActivos;
 
-        document.querySelectorAll('.filtro-lateral input[type="range"]').forEach((range) => {
-            const maximo = parseFloat(range.value || range.max || precioMaximo);
-            if (maximo < precioMaximo) activos.precioRange = maximo;
-        });
+        if (tonosActivos.length) {
+            activos.tono = tonosActivos;
+        }
+
+        document
+            .querySelectorAll('.filtro-lateral input[type="range"]')
+            .forEach((range) => {
+                const maximo = parseFloat(
+                    range.value || range.max || String(precioMaximo)
+                );
+
+                if (maximo < precioMaximo) {
+                    activos.precioRange = maximo;
+                }
+            });
 
         const selectOrden = document.querySelector(".barra-orden select");
-        if (selectOrden) activos.orden = normalizar(selectOrden.value || selectOrden.options[selectOrden.selectedIndex]?.textContent);
+        if (selectOrden) {
+            activos.orden = normalizar(selectOrden.value);
+        }
 
         const buscador = document.getElementById("buscador-principal");
         const busqueda = normalizar(buscador?.value);
+
         if (busqueda) activos.busqueda = busqueda;
 
         return activos;
@@ -480,58 +616,109 @@ function inicializarFiltrosProductos() {
 
     function coincidePrecio(producto, valor) {
         const numeros = valor.match(/[0-9]+(?:\.[0-9]+)?/g)?.map(Number) || [];
+
         if (valor.includes("-") && numeros.length >= 2) {
             return producto.precio >= numeros[0] && producto.precio <= numeros[1];
         }
-        if (valor.includes("mas") && numeros.length) return producto.precio >= numeros[0];
-        if (valor.includes("menos") && numeros.length) return producto.precio <= numeros[0];
+
+        if (valor.includes("mas") && numeros.length) {
+            return producto.precio >= numeros[0];
+        }
+
+        if (valor.includes("menos") && numeros.length) {
+            return producto.precio <= numeros[0];
+        }
+
         return true;
     }
 
     function coincide(producto, campo, valor) {
-        if (campo === "busqueda") return producto.texto.includes(valor);
-        if (campo === "color") return producto.color.includes(valor) || producto.tono.includes(valor) || producto.texto.includes(valor);
-        if (campo === "tono") return producto.tono.includes(valor) || producto.color.includes(valor) || producto.texto.includes(valor);
-        if (campo === "categoria") return producto.categoria.includes(valor) || producto.tipo.includes(valor) || producto.texto.includes(valor);
+        if (campo === "busqueda") {
+            return producto.texto.includes(valor);
+        }
+
+        if (campo === "color") {
+            return producto.color.includes(valor) ||
+                producto.tono.includes(valor) ||
+                producto.texto.includes(valor);
+        }
+
+        if (campo === "tono") {
+            return producto.tono.includes(valor) ||
+                producto.color.includes(valor) ||
+                producto.texto.includes(valor);
+        }
+
+        if (campo === "categoria") {
+            return producto.categoria.includes(valor) ||
+                producto.tipo.includes(valor) ||
+                producto.texto.includes(valor);
+        }
 
         const dato = producto[campo];
-        if (typeof dato === "string" && dato) return dato.includes(valor) || producto.texto.includes(valor);
+
+        if (typeof dato === "string" && dato) {
+            return dato.includes(valor) || producto.texto.includes(valor);
+        }
+
         return producto.texto.includes(valor);
     }
 
-    function ordenar(orden) {
+    function ordenarProductos(orden) {
         if (!orden) return;
-        const contenedores = Array.from(new Set(listaProductos.map((producto) => producto.item.parentElement).filter(Boolean)));
+
+        const contenedores = Array.from(
+            new Set(
+                listaProductos
+                    .map((producto) => producto.item.parentElement)
+                    .filter(Boolean)
+            )
+        );
 
         contenedores.forEach((contenedor) => {
-            const items = listaProductos.filter((producto) => producto.item.parentElement === contenedor);
-            if (orden.includes("menor")) items.sort((a, b) => a.precio - b.precio);
-            else if (orden.includes("mayor")) items.sort((a, b) => b.precio - a.precio);
-            else return;
+            const items = listaProductos.filter(
+                (producto) => producto.item.parentElement === contenedor
+            );
+
+            if (orden.includes("menor")) {
+                items.sort((a, b) => a.precio - b.precio);
+            } else if (orden.includes("mayor")) {
+                items.sort((a, b) => b.precio - a.precio);
+            } else {
+                return;
+            }
+
             items.forEach((producto) => contenedor.appendChild(producto.item));
         });
     }
 
     function actualizarContador(visibles) {
         document.querySelectorAll(".contador-resultados").forEach((contador) => {
-            contador.textContent = `${visibles} ${visibles === 1 ? "producto encontrado" : "productos encontrados"}`;
+            contador.textContent =
+                `${visibles} ${visibles === 1 ? "producto encontrado" : "productos encontrados"}`;
         });
     }
 
-    function mostrarMensajeSinResultados(visibles) {
-        document.querySelectorAll(".mensaje-sin-resultados").forEach((mensaje) => mensaje.remove());
+    function actualizarMensajeSinResultados(visibles) {
+        document
+            .querySelectorAll(".mensaje-sin-resultados")
+            .forEach((mensaje) => mensaje.remove());
+
         if (visibles > 0) return;
 
         const grid = listaProductos[0]?.item.parentElement;
         if (!grid) return;
+
         const mensaje = document.createElement("div");
         mensaje.className = "col-12 mensaje-sin-resultados";
-        mensaje.textContent = "No hay productos que coincidan con los filtros seleccionados.";
+        mensaje.textContent =
+            "No hay productos que coincidan con los filtros seleccionados.";
+
         grid.appendChild(mensaje);
     }
 
     function aplicarFiltros() {
-        const activos = filtrosActivos();
+        const activos = obtenerFiltrosActivos();
         let visibles = 0;
 
         listaProductos.forEach((producto) => {
@@ -539,47 +726,69 @@ function inicializarFiltrosProductos() {
 
             Object.entries(activos).forEach(([campo, valor]) => {
                 if (!mostrar || campo === "orden") return;
-                if (campo === "precioRange") mostrar = producto.precio <= Number(valor);
-                else if (campo === "precio") mostrar = coincidePrecio(producto, valor);
-                else if (Array.isArray(valor)) mostrar = valor.some((opcion) => coincide(producto, campo, opcion));
-                else mostrar = coincide(producto, campo, valor);
+
+                if (campo === "precioRange") {
+                    mostrar = producto.precio <= Number(valor);
+                } else if (campo === "precio") {
+                    mostrar = coincidePrecio(producto, valor);
+                } else if (Array.isArray(valor)) {
+                    mostrar = valor.some(
+                        (opcion) => coincide(producto, campo, opcion)
+                    );
+                } else {
+                    mostrar = coincide(producto, campo, valor);
+                }
             });
 
             producto.item.classList.toggle("producto-oculto", !mostrar);
+
             if (mostrar) visibles += 1;
         });
 
-        ordenar(activos.orden);
+        ordenarProductos(activos.orden);
         actualizarContador(visibles);
-        mostrarMensajeSinResultados(visibles);
+        actualizarMensajeSinResultados(visibles);
     }
 
-    document.querySelectorAll(".filtro-lateral select, .filtro-lateral input, .barra-orden select").forEach((elemento) => {
-        elemento.addEventListener("change", aplicarFiltros);
-        elemento.addEventListener("input", aplicarFiltros);
-    });
+    document
+        .querySelectorAll(
+            ".filtro-lateral select, .filtro-lateral input, .barra-orden select"
+        )
+        .forEach((elemento) => {
+            elemento.addEventListener("change", aplicarFiltros);
+            elemento.addEventListener("input", aplicarFiltros);
+        });
 
     document.querySelectorAll(".filtro-lateral .tono-swatch").forEach((boton) => {
         boton.setAttribute("aria-pressed", "false");
+
         boton.addEventListener("click", () => {
             const activo = boton.getAttribute("aria-pressed") !== "true";
+
             boton.setAttribute("aria-pressed", String(activo));
             boton.classList.toggle("border-dark", activo);
             boton.classList.toggle("border-3", activo);
+
             aplicarFiltros();
         });
     });
 
-    document.querySelectorAll(".btn-filtrar").forEach((boton) => boton.addEventListener("click", aplicarFiltros));
+    document.querySelectorAll(".btn-filtrar").forEach((boton) => {
+        boton.addEventListener("click", aplicarFiltros);
+    });
 
     const buscador = document.getElementById("buscador-principal");
-    if (buscador) buscador.addEventListener("input", aplicarFiltros);
+
+    if (buscador) {
+        buscador.addEventListener("input", aplicarFiltros);
+    }
 
     aplicarFiltros();
 }
 
 function inicializarBuscadorProductos() {
     const buscador = document.getElementById("buscador-principal");
+
     if (!buscador) return;
     buscador.placeholder = "Buscar productos";
 }
@@ -588,16 +797,16 @@ function inicializarBuscadorProductos() {
    INICIO GENERAL
    ============================================================= */
 document.addEventListener("DOMContentLoaded", async () => {
-    reescribirEnlacesCatalogo();
-    inicializarSubmenus();
-    inicializarMenuActivo();
-    inicializarDetalleProducto();
-    inicializarAnimaciones();
+    ejecutarSeguro("enlaces de catálogo", reescribirEnlacesCatalogo);
+    ejecutarSeguro("submenús", inicializarSubmenus);
+    ejecutarSeguro("menú activo", inicializarMenuActivo);
+    ejecutarSeguro("detalle de producto", inicializarDetalleProducto);
+    ejecutarSeguro("animaciones", inicializarAnimaciones);
 
     if (document.getElementById("catalogo-main")) {
         await cargarCatalogo();
     } else {
-        inicializarFiltrosProductos();
-        inicializarBuscadorProductos();
+        ejecutarSeguro("filtros de productos", inicializarFiltrosProductos);
+        ejecutarSeguro("buscador de productos", inicializarBuscadorProductos);
     }
 });
