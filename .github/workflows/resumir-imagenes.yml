@@ -1,0 +1,52 @@
+name: Resumir carpetas de imagenes
+
+on:
+  push:
+    branches:
+      - audit/catalogos
+
+permissions:
+  contents: write
+
+jobs:
+  resumir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/catalogos
+          fetch-depth: 0
+
+      - name: Crear resumen por carpetas
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import json
+          from collections import defaultdict
+
+          data = json.loads(Path('auditoria_catalogos.json').read_text(encoding='utf-8'))
+          folders = defaultdict(list)
+          for item in data['image_files']:
+              p = Path(item['path'])
+              folder = p.parent.as_posix()
+              folders[folder].append(item)
+
+          lines = []
+          for folder, items in sorted(folders.items()):
+              items = sorted(items, key=lambda x: x['size'])
+              smallest = '; '.join(f"{x['path']}|{x['size']}" for x in items[:5])
+              lines.append(f"FOLDER|{folder}|count={len(items)}|total={sum(x['size'] for x in items)}|smallest={smallest}")
+
+          Path('auditoria_imagenes.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+
+      - name: Guardar resumen
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add auditoria_imagenes.txt
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Generar resumen temporal de carpetas de imagenes"
+          git push origin HEAD:audit/catalogos
