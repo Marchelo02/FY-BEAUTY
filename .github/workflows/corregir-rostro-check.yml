@@ -1,0 +1,99 @@
+name: Corregir filtros rostro y validar JS
+
+on:
+  push:
+    branches:
+      - refactor/catalogos-ligeros
+
+permissions:
+  contents: write
+
+jobs:
+  corregir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refactor/catalogos-ligeros
+          fetch-depth: 0
+
+      - run: pip install beautifulsoup4
+
+      - name: Completar filtros de precio y orden
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+
+          path = Path('maquillaje-rostro.html')
+          soup = BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
+
+          def completar(campo, opciones):
+              select = soup.select_one(f'select[data-filtro="{campo}"]')
+              if not select:
+                  raise RuntimeError(f'No existe select {campo}')
+              existentes = {o.get_text(' ', strip=True) for o in select.find_all('option')}
+              for texto in opciones:
+                  if texto not in existentes:
+                      option = soup.new_tag('option')
+                      option.string = texto
+                      select.append(option)
+
+          completar('precio', ['S/ 0 - S/ 50', 'S/ 50 - S/ 100', 'Más de S/ 100'])
+          completar('orden', ['Menor precio', 'Mayor precio', 'Novedades'])
+          path.write_text(str(soup), encoding='utf-8')
+          PY
+
+      - name: Validar sintaxis y comportamiento de filtros
+        run: |
+          node --check js/misProgramas.js
+          python <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+
+          js = Path('js/misProgramas.js').read_text(encoding='utf-8')
+          errors = []
+
+          rostro = BeautifulSoup(Path('maquillaje-rostro.html').read_text(encoding='utf-8'), 'html.parser')
+          precio = rostro.select_one('select[data-filtro="precio"]')
+          orden = rostro.select_one('select[data-filtro="orden"]')
+          if not precio or len(precio.find_all('option')) < 4:
+              errors.append('precio rostro')
+          if not orden or len(orden.find_all('option')) < 4:
+              errors.append('orden rostro')
+
+          generales = ['maquillaje.html', 'maquillaje-rostro.html', 'maquillaje-ojos.html', 'maquillaje-labios.html']
+          for pagina in generales:
+              soup = BeautifulSoup(Path(pagina).read_text(encoding='utf-8'), 'html.parser')
+              if not soup.select_one('.btn-filtrar'):
+                  errors.append(f'boton filtrar {pagina}')
+
+          if 'addEventListener("change"' in js:
+              errors.append('filtros change independientes')
+          if 'buscador.addEventListener("input"' in js:
+              errors.append('buscador independiente')
+          if 'range.addEventListener("input"' not in js:
+              errors.append('slider no independiente')
+
+          lines = [
+              f'precio_options={len(precio.find_all("option")) if precio else 0}',
+              f'orden_options={len(orden.find_all("option")) if orden else 0}',
+              'general_filter_buttons=4',
+              f'change_listeners={js.count("addEventListener(\\\"change\\\"")}',
+              f'range_input_listener={"range.addEventListener(\\\"input\\\"" in js}',
+              f'buscador_input_listener={"buscador.addEventListener(\\\"input\\\"" in js}',
+              f'errors={errors}',
+          ]
+          Path('verificacion_tecnica.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          if errors:
+              raise RuntimeError(', '.join(errors))
+          PY
+
+      - name: Guardar corrección
+        run: |
+          rm -f .github/workflows/corregir-rostro-check.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Completar filtros de rostro y validar JavaScript"
+          git push origin HEAD:refactor/catalogos-ligeros
