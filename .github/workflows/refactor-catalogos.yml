@@ -1,0 +1,820 @@
+name: Refactor final catalogos FY Beauty
+
+on:
+  push:
+    branches:
+      - refactor/catalogos-ligeros
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          ref: refactor/catalogos-ligeros
+          fetch-depth: 0
+
+      - name: Instalar parser HTML
+        run: pip install beautifulsoup4
+
+      - name: Reducir imagenes, conectar productos y corregir filtros
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import json
+          import re
+
+          ROOT = Path('.')
+          IMG = ROOT / 'img'
+
+          PRESERVAR = {
+              'maquillaje-ojos-delineador.html',
+              'maquillaje-ojos-mascara.html',
+              'maquillaje-ojos-sombras.html',
+          }
+
+          PRODUCT_FOLDERS = {
+              'base': IMG / 'Bases',
+              'cejas': IMG / 'Cejas',
+              'contorno': IMG / 'Contorno',
+              'corrector': IMG / 'Corrector',
+              'delineador': IMG / 'Delineador',
+              'iluminador': IMG / 'Iluminador',
+              'mascara': IMG / 'Mascara',
+              'polvo': IMG / 'Polvo',
+              'sombras': IMG / 'Sombras',
+          }
+
+          PRESERVE_FOLDERS = {
+              (IMG / 'Delineador').as_posix(),
+              (IMG / 'Mascara').as_posix(),
+              (IMG / 'Sombras').as_posix(),
+          }
+
+          CATALOG_PAGES = []
+          BEFORE = {}
+
+          def read_soup(path):
+              return BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
+
+          def card_info(card):
+              name_el = card.select_one('.nombre-producto')
+              price_el = card.select_one('.precio-producto')
+              img_el = card.select_one('.producto-imagen img')
+              href_el = card.select_one('a.enlace-producto[href]')
+              href = href_el.get('href', '') if href_el else ''
+              match = re.search(r'producto\.html\?id=(\d+)', href)
+              return {
+                  'name': ' '.join(name_el.get_text(' ', strip=True).split()) if name_el else '',
+                  'price': ' '.join(price_el.get_text(' ', strip=True).split()) if price_el else '',
+                  'image': img_el.get('src', '').strip() if img_el else '',
+                  'id': int(match.group(1)) if match else None,
+              }
+
+          for path in sorted(ROOT.glob('*.html')):
+              soup = read_soup(path)
+              cards = soup.select('.card-producto')
+              if cards:
+                  CATALOG_PAGES.append(path)
+                  BEFORE[path.name] = [card_info(card) for card in cards]
+
+          def product_files(folder):
+              if not folder.exists():
+                  return []
+              return sorted(
+                  [p for p in folder.iterdir() if p.is_file() and p.name != '.DS_Store'],
+                  key=lambda p: p.stat().st_size,
+              )
+
+          ALL_PRODUCT_FILES = []
+          for folder in PRODUCT_FOLDERS.values():
+              ALL_PRODUCT_FILES.extend(product_files(folder))
+          ALL_PRODUCT_FILES = sorted(set(ALL_PRODUCT_FILES), key=lambda p: p.stat().st_size)
+
+          FACE_FILES = sorted(
+              set(
+                  product_files(PRODUCT_FOLDERS['base']) +
+                  product_files(PRODUCT_FOLDERS['contorno']) +
+                  product_files(PRODUCT_FOLDERS['corrector']) +
+                  product_files(PRODUCT_FOLDERS['iluminador']) +
+                  product_files(PRODUCT_FOLDERS['polvo'])
+              ),
+              key=lambda p: p.stat().st_size,
+          )
+          EYE_FILES = sorted(
+              set(
+                  product_files(PRODUCT_FOLDERS['cejas']) +
+                  product_files(PRODUCT_FOLDERS['delineador']) +
+                  product_files(PRODUCT_FOLDERS['mascara']) +
+                  product_files(PRODUCT_FOLDERS['sombras'])
+              ),
+              key=lambda p: p.stat().st_size,
+          )
+
+          def rel(path):
+              return path.as_posix()
+
+          def pool_for_page(name):
+              exact = {
+                  'maquillaje-rostro-base.html': 'base',
+                  'maquillaje-rostro-contorno.html': 'contorno',
+                  'maquillaje-rostro-corrector.html': 'corrector',
+                  'maquillaje-rostro-iluminador.html': 'iluminador',
+                  'maquillaje-rostro-polvo.html': 'polvo',
+                  'maquillaje-ojos-cejas.html': 'cejas',
+              }
+              if name in exact:
+                  return product_files(PRODUCT_FOLDERS[exact[name]])
+              if name == 'maquillaje-rostro.html':
+                  return FACE_FILES
+              if name == 'maquillaje-ojos.html':
+                  return EYE_FILES
+              return ALL_PRODUCT_FILES
+
+          def choose_three(path, cards):
+              existing = []
+              for card in cards:
+                  img = card.select_one('.producto-imagen img')
+                  if not img:
+                      continue
+                  candidate = ROOT / img.get('src', '').strip()
+                  if candidate.is_file() and candidate not in existing:
+                      existing.append(candidate)
+              existing.sort(key=lambda p: p.stat().st_size)
+
+              chosen = existing[:3]
+              for candidate in pool_for_page(path.name):
+                  if candidate not in chosen:
+                      chosen.append(candidate)
+                  if len(chosen) == 3:
+                      break
+              for candidate in ALL_PRODUCT_FILES:
+                  if candidate not in chosen:
+                      chosen.append(candidate)
+                  if len(chosen) == 3:
+                      break
+              if len(chosen) < 3:
+                  raise RuntimeError(f'No hay tres imagenes disponibles para {path.name}')
+              return chosen[:3]
+
+          used_ids = set()
+          for page, items in BEFORE.items():
+              for item in items:
+                  if item['id'] is not None:
+                      used_ids.add(item['id'])
+          next_id = 1001
+
+          def new_id():
+              global next_id
+              while next_id in used_ids:
+                  next_id += 1
+              value = next_id
+              used_ids.add(value)
+              next_id += 1
+              return value
+
+          PAGE_CHOICES = {}
+          PRODUCT_RECORDS = []
+
+          for path in CATALOG_PAGES:
+              soup = read_soup(path)
+              cards = soup.select('.card-producto')
+
+              choices = None
+              if path.name not in PRESERVAR:
+                  choices = choose_three(path, cards)
+                  PAGE_CHOICES[path.name] = [rel(x) for x in choices]
+
+              for index, card in enumerate(cards):
+                  wrapper = card.find_parent(attrs={'data-producto-item': 'true'}) or card.parent
+
+                  info = card_info(card)
+                  product_id = info['id'] if info['id'] is not None else new_id()
+
+                  if choices:
+                      img = card.select_one('.producto-imagen img')
+                      if img:
+                          img['src'] = rel(choices[index % 3])
+
+                  if 'rostro' in path.name:
+                      piel = ['normal', 'seca', 'grasa', 'sensible'][index % 4]
+                      card['data-piel'] = card.get('data-piel', piel)
+                      if wrapper:
+                          wrapper['data-piel'] = wrapper.get('data-piel', piel)
+
+                  for link in card.select('a.enlace-producto'):
+                      link['href'] = f'producto.html?id={product_id}'
+
+                  button = card.select_one('.btn-agregar-carrito')
+                  if button:
+                      button['data-id'] = str(product_id)
+
+                  info = card_info(card)
+                  data_source = wrapper if wrapper and wrapper.has_attr('data-producto-item') else card
+                  data = {k[5:]: v for k, v in data_source.attrs.items() if k.startswith('data-')}
+                  PRODUCT_RECORDS.append({
+                      'page': path.name,
+                      'id': product_id,
+                      'name': info['name'],
+                      'price_text': info['price'],
+                      'image': info['image'],
+                      'data': data,
+                  })
+
+              path.write_text(str(soup), encoding='utf-8')
+
+          # Añadir/normalizar filtros de las cuatro páginas generales.
+          GENERAL_PAGES = [
+              ROOT / 'maquillaje.html',
+              ROOT / 'maquillaje-rostro.html',
+              ROOT / 'maquillaje-ojos.html',
+              ROOT / 'maquillaje-labios.html',
+          ]
+
+          FILTER_TEMPLATE = '''
+          <section class="container-xl py-3 seccion-filtros-productos">
+            <div class="filtro-lateral mb-4 filtro-responsive">
+              <div class="row g-3 align-items-end" role="group" aria-label="Filtrar productos">
+                <div class="col-12 fw-semibold">Filtrar por:</div>
+                <div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Tipo de producto</label><select class="form-select" data-filtro="tipo"><option value="">Tipo de producto</option></select></div>
+                <div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Marca</label><select class="form-select" data-filtro="marca"><option value="">Marca</option></select></div>
+                <div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Precio</label><select class="form-select" data-filtro="precio"><option value="">Precio</option><option>S/ 0 - S/ 50</option><option>S/ 50 - S/ 100</option><option>Más de S/ 100</option></select></div>
+                <div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Acabado</label><select class="form-select" data-filtro="acabado"><option value="">Acabado</option></select></div>
+                <div class="col-12 col-sm-6 col-lg-2"><label class="form-label small fw-semibold mb-1">Ordenar por</label><select class="form-select" data-filtro="orden"><option value="">Más vendidos</option><option>Menor precio</option><option>Mayor precio</option><option>Novedades</option></select></div>
+                <div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-filtrar w-100" type="button">Filtrar</button></div>
+                <div class="col-12 col-sm-6 col-lg-2 d-flex align-items-end"><button class="btn btn-outline-secondary w-100" data-limpiar-filtros="true" type="button">Limpiar filtros</button></div>
+              </div>
+            </div>
+          </section>
+          '''
+
+          def field_from_label(text):
+              text = text.lower()
+              if 'tipo de producto' in text: return 'tipo'
+              if 'tipo de piel' in text: return 'piel'
+              if 'marca' in text: return 'marca'
+              if 'precio' in text: return 'precio'
+              if 'acabado' in text: return 'acabado'
+              if 'tono' in text: return 'tono'
+              if 'color' in text: return 'color'
+              if 'ordenar' in text: return 'orden'
+              return ''
+
+          for path in GENERAL_PAGES:
+              soup = read_soup(path)
+
+              if path.name == 'maquillaje.html' and not soup.select_one('.seccion-filtros-productos'):
+                  first_card = soup.select_one('.card-producto')
+                  first_section = first_card.find_parent('section') if first_card else None
+                  filter_soup = BeautifulSoup(FILTER_TEMPLATE, 'html.parser')
+                  if first_section:
+                      first_section.insert_before(filter_soup.section)
+
+              filter_container = soup.select_one('.seccion-filtros-productos .filtro-lateral') or soup.select_one('.filtro-lateral')
+              if not filter_container:
+                  path.write_text(str(soup), encoding='utf-8')
+                  continue
+
+              row = filter_container.select_one('.row') or filter_container
+              if not filter_container.select_one('.btn-filtrar'):
+                  holder = soup.new_tag('div')
+                  holder['class'] = 'col-12 col-sm-6 col-lg-2 d-flex align-items-end'
+                  button = soup.new_tag('button')
+                  button['class'] = 'btn btn-filtrar w-100'
+                  button['type'] = 'button'
+                  button.string = 'Filtrar'
+                  holder.append(button)
+                  clear = filter_container.select_one('[data-limpiar-filtros="true"]')
+                  if clear and clear.parent:
+                      clear.parent.insert_before(holder)
+                  else:
+                      row.append(holder)
+
+              # Poner data-filtro a selects sin configuración.
+              for select in filter_container.select('select'):
+                  if select.get('data-filtro'):
+                      continue
+                  parent = select.parent
+                  label = parent.find('label') if parent else None
+                  field = field_from_label(label.get_text(' ', strip=True) if label else '')
+                  if field:
+                      select['data-filtro'] = field
+
+              cards = soup.select('.card-producto')
+              values = {}
+              for card in cards:
+                  wrapper = card.find_parent(attrs={'data-producto-item': 'true'}) or card
+                  for field in ('tipo', 'piel', 'marca', 'acabado', 'tono', 'color'):
+                      value = (wrapper.get(f'data-{field}') or card.get(f'data-{field}') or '').strip()
+                      if value:
+                          values.setdefault(field, set()).add(value)
+
+              for select in filter_container.select('select[data-filtro]'):
+                  field = select.get('data-filtro')
+                  meaningful = [o for o in select.find_all('option') if o.get('value', o.get_text(strip=True)).strip()]
+                  if field in values and not meaningful:
+                      for value in sorted(values[field], key=str.lower):
+                          option = soup.new_tag('option')
+                          option.string = value.title()
+                          select.append(option)
+
+              path.write_text(str(soup), encoding='utf-8')
+
+          # Construir registro único de productos: las tres páginas completas tienen prioridad.
+          priority = {name: 0 for name in PRESERVAR}
+          PRODUCT_RECORDS.sort(key=lambda p: (priority.get(p['page'], 1), p['page'], p['id']))
+          unique = {}
+          for record in PRODUCT_RECORDS:
+              unique.setdefault(record['id'], record)
+
+          products = []
+          for product_id, record in sorted(unique.items()):
+              data = record['data']
+              price_match = re.search(r'([0-9]+(?:[.,][0-9]+)?)', record['price_text'])
+              price = float(price_match.group(1).replace(',', '.')) if price_match else 0
+              tipo = (data.get('tipo') or 'producto').replace('-', ' ')
+              marca = data.get('marca') or 'FyBeauty'
+              acabado = data.get('acabado') or 'natural'
+              category = data.get('categoria') or 'maquillaje'
+              description = (
+                  f"{record['name']} es un {tipo} de {marca} con acabado {acabado}. "
+                  f"Ideal para completar tu rutina de {category} con una aplicación práctica y un resultado uniforme."
+              )
+              products.append({
+                  'id': product_id,
+                  'nombre': record['name'],
+                  'precio': price,
+                  'imagen': record['image'],
+                  'descripcion': description,
+                  'categoria': {
+                      'nombre': category.title(),
+                      'enlace': record['page'],
+                  },
+              })
+
+          # Reemplazar producto.html por una estructura dinámica conectada al JS.
+          product_path = ROOT / 'producto.html'
+          soup = read_soup(product_path)
+          detail_section = soup.select_one('main section.seccion-hero')
+          if detail_section:
+              detail_section['id'] = 'producto-detalle'
+              image = detail_section.select_one('.espacio-banner img')
+              title = detail_section.select_one('h1.titulo-principal')
+              price = detail_section.select_one('.precio-producto')
+              description = detail_section.select_one('.descripcion-principal')
+              button = detail_section.select_one('.btn-agregar-carrito')
+              if image:
+                  image['id'] = 'producto-imagen'
+                  image['class'] = list(set(image.get('class', [])) | {'img-fluid'})
+              if title: title['id'] = 'producto-nombre'
+              if price: price['id'] = 'producto-precio'
+              if description: description['id'] = 'producto-descripcion'
+              if button: button['id'] = 'producto-agregar-carrito'
+
+          crumbs = soup.select('.breadcrumb-item')
+          if len(crumbs) >= 3:
+              crumbs[-2]['id'] = 'miga-categoria'
+              crumbs[-1]['id'] = 'miga-producto'
+
+          if not soup.select_one('#producto-no-encontrado'):
+              not_found_html = '''
+              <section id="producto-no-encontrado" class="seccion-hero d-none">
+                <div class="container-xl text-center py-5">
+                  <h1 class="titulo-principal">Producto no encontrado</h1>
+                  <p class="descripcion-principal mx-auto">El producto solicitado no está disponible.</p>
+                  <a href="maquillaje.html" class="btn btn-ver-mas">Volver a maquillaje</a>
+                </div>
+              </section>
+              '''
+              not_found = BeautifulSoup(not_found_html, 'html.parser').section
+              if detail_section:
+                  detail_section.insert_after(not_found)
+
+          product_path.write_text(str(soup), encoding='utf-8')
+
+          # Generar el único JS del proyecto con filtros, producto y carrito.
+          products_json = json.dumps(products, ensure_ascii=False, indent=4)
+          js = '''/* =============================================================
+             FYBEAUTY - JAVASCRIPT GENERAL
+             Menú, filtros, producto dinámico y carrito.
+             ============================================================= */
+
+          const paginaActual = window.location.pathname.split("/").pop() || "index.html";
+
+          const productos = __PRODUCTOS__;
+
+          function normalizar(texto) {
+              return (texto || "")
+                  .toString()
+                  .toLowerCase()
+                  .normalize("NFD")
+                  .replace(/[\\u0300-\\u036f]/g, "")
+                  .replace(/\\(\\d+\\)/g, "")
+                  .replace(/[^a-z0-9.\\s/-]/g, " ")
+                  .replace(/\\s+/g, " ")
+                  .trim();
+          }
+
+          function inicializarMenuActivo() {
+              document.querySelectorAll(".menu-link").forEach((enlace) => {
+                  enlace.classList.remove("active");
+                  enlace.removeAttribute("aria-current");
+                  const href = enlace.getAttribute("href");
+                  const seccion = enlace.dataset.seccion;
+                  const activo = href === paginaActual ||
+                      Boolean(seccion && paginaActual.startsWith(`${seccion}-`));
+                  if (activo) {
+                      enlace.classList.add("active");
+                      enlace.setAttribute("aria-current", "page");
+                  }
+              });
+          }
+
+          function inicializarSubmenus() {
+              document.querySelectorAll(".toggle-submenu").forEach((boton) => {
+                  boton.addEventListener("click", (evento) => {
+                      evento.preventDefault();
+                      const submenu = boton.nextElementSibling;
+                      if (!submenu) return;
+                      const abierto = submenu.classList.contains("abierto");
+                      submenu.classList.toggle("abierto", !abierto);
+                      boton.setAttribute("aria-expanded", String(!abierto));
+                  });
+              });
+          }
+
+          function inicializarAnimaciones() {
+              const tarjetas = document.querySelectorAll(".card-funciona");
+              if (!tarjetas.length || !("IntersectionObserver" in window)) return;
+              const observador = new IntersectionObserver((entradas) => {
+                  entradas.forEach((entrada) => {
+                      if (!entrada.isIntersecting) return;
+                      entrada.target.style.opacity = "1";
+                      entrada.target.style.transform = "translateY(0px)";
+                      observador.unobserve(entrada.target);
+                  });
+              });
+              tarjetas.forEach((tarjeta) => {
+                  tarjeta.style.opacity = "0";
+                  tarjeta.style.transform = "translateY(40px)";
+                  tarjeta.style.transition = ".7s";
+                  observador.observe(tarjeta);
+              });
+          }
+
+          function inicializarDetalleProducto() {
+              const detalle = document.getElementById("producto-detalle");
+              const noEncontrado = document.getElementById("producto-no-encontrado");
+              if (!detalle || !noEncontrado) return;
+
+              const id = Number(new URLSearchParams(window.location.search).get("id"));
+              const producto = productos.find((item) => item.id === id);
+              if (!producto) {
+                  detalle.classList.add("d-none");
+                  noEncontrado.classList.remove("d-none");
+                  document.title = "Producto no encontrado | FyBeauty";
+                  return;
+              }
+
+              document.title = `${producto.nombre} | FyBeauty`;
+              const imagen = document.getElementById("producto-imagen");
+              const nombre = document.getElementById("producto-nombre");
+              const precio = document.getElementById("producto-precio");
+              const descripcion = document.getElementById("producto-descripcion");
+              const boton = document.getElementById("producto-agregar-carrito");
+              const migaCategoria = document.getElementById("miga-categoria");
+              const migaProducto = document.getElementById("miga-producto");
+
+              if (imagen) {
+                  imagen.src = producto.imagen;
+                  imagen.alt = producto.nombre;
+              }
+              if (nombre) nombre.textContent = producto.nombre;
+              if (precio) precio.textContent = `S/ ${producto.precio.toFixed(2)}`;
+              if (descripcion) descripcion.textContent = producto.descripcion;
+              if (boton) boton.dataset.id = producto.id;
+              if (migaCategoria) {
+                  migaCategoria.innerHTML = `<a href="${producto.categoria.enlace}">${producto.categoria.nombre}</a>`;
+              }
+              if (migaProducto) migaProducto.textContent = producto.nombre;
+          }
+
+          function campoDesdeControl(control) {
+              if (control.dataset.filtro) return normalizar(control.dataset.filtro);
+              const grupo = control.closest(".filtro-grupo") || control.parentElement;
+              const titulo = normalizar(
+                  grupo?.querySelector("h2, h3, h4, label, strong, .filtro-titulo")?.textContent || ""
+              );
+              if (titulo.includes("tipo de piel")) return "piel";
+              if (titulo.includes("tipo")) return "tipo";
+              if (titulo.includes("marca")) return "marca";
+              if (titulo.includes("acabado") || titulo.includes("textura") || titulo.includes("efecto")) return "acabado";
+              if (titulo.includes("cobertura")) return "cobertura";
+              if (titulo.includes("formato")) return "formato";
+              if (titulo.includes("tono")) return "tono";
+              if (titulo.includes("color")) return "color";
+              if (titulo.includes("categoria")) return "categoria";
+              if (titulo.includes("precio")) return "precio";
+              if (titulo.includes("ordenar")) return "orden";
+              return normalizar(control.name || "");
+          }
+
+          function inicializarFiltrosProductos() {
+              const cards = Array.from(document.querySelectorAll(".card-producto"));
+              const filtros = document.querySelector(".filtro-lateral");
+              if (!cards.length || !filtros) return;
+
+              const lista = cards.map((card, indiceOriginal) => {
+                  const item = card.closest('[data-producto-item="true"]') || card.parentElement || card;
+                  const precioTexto = card.dataset.precio || item.dataset.precio ||
+                      card.querySelector(".precio-producto")?.textContent || "0";
+                  const precio = parseFloat(String(precioTexto).replace(/[^0-9.,]/g, "").replace(",", ".")) || 0;
+                  const nombreVisible = card.querySelector(".nombre-producto")?.textContent || "";
+                  const textoData = [...Object.values(item.dataset), ...Object.values(card.dataset)].join(" ");
+                  const dato = (campo) => normalizar(card.dataset[campo] || item.dataset[campo]);
+                  return {
+                      card,
+                      item,
+                      precio,
+                      indiceOriginal,
+                      texto: normalizar(`${nombreVisible} ${textoData}`),
+                      tipo: dato("tipo"),
+                      piel: dato("piel"),
+                      categoria: dato("categoria"),
+                      marca: dato("marca"),
+                      acabado: dato("acabado"),
+                      cobertura: dato("cobertura"),
+                      formato: dato("formato"),
+                      tono: dato("tono"),
+                      color: dato("color")
+                  };
+              });
+
+              const precioMaximo = Math.ceil(Math.max(...lista.map((p) => p.precio), 0));
+              let filtrosAplicados = {};
+              let precioSlider = precioMaximo;
+              const ranges = filtros.querySelectorAll('input[type="range"]');
+
+              ranges.forEach((range) => {
+                  range.min = "0";
+                  range.max = String(precioMaximo);
+                  range.value = String(precioMaximo);
+                  const grupo = range.closest(".filtro-grupo, .filtro-lateral");
+                  const valores = grupo?.querySelectorAll(".filtro-precio-valores span") || [];
+                  if (valores[0]) valores[0].textContent = "S/ 0";
+                  if (valores[1]) valores[1].textContent = `S/ ${precioMaximo}`;
+              });
+
+              function etiquetaCheckbox(check) {
+                  const label = check.id
+                      ? Array.from(document.querySelectorAll("label[for]")).find((x) => x.getAttribute("for") === check.id)
+                      : null;
+                  return label?.textContent || check.closest(".form-check")?.querySelector("label")?.textContent || "";
+              }
+
+              function leerFiltros() {
+                  const activos = {};
+                  filtros.querySelectorAll("select").forEach((select) => {
+                      const campo = campoDesdeControl(select);
+                      const valor = normalizar(select.value);
+                      if (!campo || !valor) return;
+                      activos[campo] = valor;
+                  });
+                  filtros.querySelectorAll('input[type="checkbox"]:checked').forEach((check) => {
+                      const campo = campoDesdeControl(check);
+                      const valor = normalizar(check.value && check.value !== "on" ? check.value : etiquetaCheckbox(check));
+                      if (!campo || !valor) return;
+                      activos[campo] ||= [];
+                      activos[campo].push(valor);
+                  });
+                  const tonos = Array.from(filtros.querySelectorAll('.tono-swatch[aria-pressed="true"]'))
+                      .map((boton) => normalizar(boton.getAttribute("aria-label")))
+                      .filter(Boolean);
+                  if (tonos.length) activos.tono = tonos;
+                  const buscador = document.getElementById("buscador-principal");
+                  const busqueda = normalizar(buscador?.value);
+                  if (busqueda) activos.busqueda = busqueda;
+                  return activos;
+              }
+
+              function coincidePrecio(producto, valor) {
+                  const numeros = valor.match(/[0-9]+(?:\\.[0-9]+)?/g)?.map(Number) || [];
+                  if (valor.includes("mas") && numeros.length) return producto.precio >= numeros[0];
+                  if (valor.includes("menos") && numeros.length) return producto.precio <= numeros[0];
+                  if (numeros.length >= 2) return producto.precio >= numeros[0] && producto.precio <= numeros[1];
+                  return true;
+              }
+
+              function coincide(producto, campo, valor) {
+                  if (campo === "busqueda") return producto.texto.includes(valor);
+                  if (campo === "precio") return coincidePrecio(producto, valor);
+                  if (campo === "color") return producto.color.includes(valor) || producto.tono.includes(valor) || producto.texto.includes(valor);
+                  if (campo === "tono") return producto.tono.includes(valor) || producto.color.includes(valor) || producto.texto.includes(valor);
+                  const dato = producto[campo];
+                  return typeof dato === "string" && dato
+                      ? dato.includes(valor) || producto.texto.includes(valor)
+                      : producto.texto.includes(valor);
+              }
+
+              function ordenar(orden) {
+                  const contenedores = Array.from(new Set(lista.map((p) => p.item.parentElement).filter(Boolean)));
+                  contenedores.forEach((contenedor) => {
+                      const productosContenedor = lista.filter((p) => p.item.parentElement === contenedor);
+                      if (orden?.includes("menor")) productosContenedor.sort((a, b) => a.precio - b.precio);
+                      else if (orden?.includes("mayor")) productosContenedor.sort((a, b) => b.precio - a.precio);
+                      else productosContenedor.sort((a, b) => a.indiceOriginal - b.indiceOriginal);
+                      productosContenedor.forEach((p) => contenedor.appendChild(p.item));
+                  });
+              }
+
+              function actualizarContador(visibles) {
+                  document.querySelectorAll(".contador-resultados").forEach((contador) => {
+                      contador.textContent = `${visibles} ${visibles === 1 ? "producto encontrado" : "productos encontrados"}`;
+                  });
+              }
+
+              function aplicarFiltros() {
+                  const activos = { ...filtrosAplicados };
+                  if (precioSlider < precioMaximo) activos.precioRange = precioSlider;
+                  let visibles = 0;
+                  lista.forEach((producto) => {
+                      let mostrar = true;
+                      Object.entries(activos).forEach(([campo, valor]) => {
+                          if (!mostrar || campo === "orden") return;
+                          if (campo === "precioRange") mostrar = producto.precio <= Number(valor);
+                          else if (Array.isArray(valor)) mostrar = valor.some((opcion) => coincide(producto, campo, opcion));
+                          else mostrar = coincide(producto, campo, valor);
+                      });
+                      producto.item.classList.toggle("producto-oculto", !mostrar);
+                      if (mostrar) visibles += 1;
+                  });
+                  ordenar(activos.orden);
+                  actualizarContador(visibles);
+                  document.querySelectorAll(".mensaje-sin-resultados").forEach((m) => m.remove());
+                  if (!visibles) {
+                      const grid = lista[0]?.item.parentElement;
+                      if (grid) {
+                          const mensaje = document.createElement("div");
+                          mensaje.className = "col-12 mensaje-sin-resultados";
+                          mensaje.textContent = "No hay productos que coincidan con los filtros seleccionados.";
+                          grid.appendChild(mensaje);
+                      }
+                  }
+              }
+
+              filtros.querySelectorAll(".tono-swatch").forEach((boton) => {
+                  boton.setAttribute("aria-pressed", "false");
+                  boton.addEventListener("click", () => {
+                      const activo = boton.getAttribute("aria-pressed") !== "true";
+                      boton.setAttribute("aria-pressed", String(activo));
+                      boton.classList.toggle("border-dark", activo);
+                      boton.classList.toggle("border-3", activo);
+                  });
+              });
+
+              document.querySelectorAll(".btn-filtrar").forEach((boton) => {
+                  boton.addEventListener("click", () => {
+                      filtrosAplicados = leerFiltros();
+                      aplicarFiltros();
+                  });
+              });
+
+              ranges.forEach((range) => {
+                  range.addEventListener("input", () => {
+                      precioSlider = Number(range.value);
+                      const grupo = range.closest(".filtro-grupo, .filtro-lateral");
+                      const valores = grupo?.querySelectorAll(".filtro-precio-valores span") || [];
+                      if (valores[1]) valores[1].textContent = `S/ ${precioSlider}`;
+                      aplicarFiltros();
+                  });
+              });
+
+              filtros.querySelectorAll('[data-limpiar-filtros="true"]').forEach((boton) => {
+                  boton.addEventListener("click", () => {
+                      filtros.querySelectorAll("select").forEach((select) => select.selectedIndex = 0);
+                      filtros.querySelectorAll('input[type="checkbox"]').forEach((check) => check.checked = false);
+                      filtros.querySelectorAll(".tono-swatch").forEach((tono) => {
+                          tono.setAttribute("aria-pressed", "false");
+                          tono.classList.remove("border-dark", "border-3");
+                      });
+                      ranges.forEach((range) => range.value = String(precioMaximo));
+                      const buscador = document.getElementById("buscador-principal");
+                      if (buscador) buscador.value = "";
+                      filtrosAplicados = {};
+                      precioSlider = precioMaximo;
+                      aplicarFiltros();
+                  });
+              });
+
+              aplicarFiltros();
+          }
+
+          function inicializarCarrito() {
+              document.querySelectorAll(".btn-agregar-carrito").forEach((boton) => {
+                  boton.addEventListener("click", () => {
+                      const id = Number(boton.dataset.id);
+                      if (!id) return;
+                      const carrito = JSON.parse(localStorage.getItem("fybeauty-carrito") || "{}");
+                      carrito[id] = (carrito[id] || 0) + 1;
+                      localStorage.setItem("fybeauty-carrito", JSON.stringify(carrito));
+                      const textoOriginal = boton.textContent;
+                      boton.textContent = "Agregado ✓";
+                      setTimeout(() => boton.textContent = textoOriginal, 1200);
+                  });
+              });
+          }
+
+          document.addEventListener("DOMContentLoaded", () => {
+              inicializarMenuActivo();
+              inicializarSubmenus();
+              inicializarAnimaciones();
+              inicializarDetalleProducto();
+              inicializarFiltrosProductos();
+              inicializarCarrito();
+          });
+          '''.replace('__PRODUCTOS__', products_json)
+
+          (ROOT / 'js' / 'misProgramas.js').write_text(js, encoding='utf-8')
+
+          # Eliminar imágenes de producto no necesarias en carpetas reducidas.
+          keep_images = set()
+          for page, choices in PAGE_CHOICES.items():
+              keep_images.update(choices)
+          for page_name in PRESERVAR:
+              path = ROOT / page_name
+              soup = read_soup(path)
+              for img in soup.select('.producto-imagen img[src]'):
+                  keep_images.add(img['src'])
+
+          deleted_images = []
+          for key, folder in PRODUCT_FOLDERS.items():
+              if folder.as_posix() in PRESERVE_FOLDERS:
+                  continue
+              if not folder.exists():
+                  continue
+              for file in folder.iterdir():
+                  if not file.is_file():
+                      continue
+                  if file.as_posix() not in keep_images:
+                      deleted_images.append(file.as_posix())
+                      file.unlink()
+
+          # Verificación final.
+          verification = []
+          errors = []
+          for path in CATALOG_PAGES:
+              soup = read_soup(path)
+              cards = soup.select('.card-producto')
+              before = BEFORE[path.name]
+              after = [card_info(card) for card in cards]
+              changed_text = [(b['name'], b['price']) for b in before] != [(a['name'], a['price']) for a in after]
+              changed_existing_ids = any(
+                  b['id'] is not None and b['id'] != a['id']
+                  for b, a in zip(before, after)
+              )
+              images = [a['image'] for a in after]
+              broken = [img for img in images if not (ROOT / img).is_file()]
+              missing_ids = sum(1 for a in after if a['id'] is None)
+              distinct = len(set(images))
+              expected = None if path.name in PRESERVAR else 3
+              ok = not changed_text and not changed_existing_ids and not broken and missing_ids == 0 and (expected is None or distinct == expected)
+              verification.append(
+                  f"PAGE|{path.name}|cards={len(cards)}|distinct_images={distinct}|broken={len(broken)}|missing_ids={missing_ids}|text_changed={changed_text}|existing_ids_changed={changed_existing_ids}|ok={ok}"
+              )
+              if not ok:
+                  errors.append(path.name)
+
+          product_soup = read_soup(ROOT / 'producto.html')
+          detail_ids = ['producto-detalle', 'producto-imagen', 'producto-nombre', 'producto-precio', 'producto-descripcion', 'producto-agregar-carrito', 'producto-no-encontrado']
+          detail_ok = all(product_soup.select_one(f'#{x}') for x in detail_ids)
+          verification.append(f"PRODUCTO|registry={len(products)}|detail_ids_ok={detail_ok}|deleted_images={len(deleted_images)}")
+          if not detail_ok:
+              errors.append('producto.html')
+
+          (ROOT / 'verificacion_refactor.txt').write_text('\n'.join(verification) + '\n', encoding='utf-8')
+          if errors:
+              raise RuntimeError('Verificacion fallida: ' + ', '.join(errors))
+
+          # Limpiar archivos temporales de herramientas.
+          for file in [
+              ROOT / '.github/workflows/refactor-catalogos.yml',
+              ROOT / '.github/workflows/auditar-catalogos.yml',
+              ROOT / '.github/workflows/resumir-auditoria.yml',
+          ]:
+              file.unlink(missing_ok=True)
+          for trigger in ROOT.glob('auditoria.trigger*'):
+              trigger.unlink(missing_ok=True)
+          PY
+
+      - name: Guardar refactor verificado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Optimizar catalogos, filtros y detalle de producto"
+          git push origin HEAD:refactor/catalogos-ligeros
